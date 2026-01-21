@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -11,17 +10,11 @@ import PortfolioSection from '@/components/portfolio-section';
 
 import type { Technology, SkillItem, UserProfile, Project, Image as ProjectImage } from '@/lib/types';
 
-interface HomePageProps {
-  data?: {
-    userProfile?: UserProfile;
-    technologies?: Technology[];
-    skillItems?: SkillItem[];
-    projects?: Project[];
-    images?: ProjectImage[];
-  };
-}
+// Import default company data (will be loaded at build time)
+import defaultCompanyData from '@/data/companies/default.json';
 
-export default function Home({ data }: HomePageProps) {
+export default function Home() {
+  const data = defaultCompanyData;
   const technologies = data?.technologies || [];
   const skillItems = data?.skillItems || [];
   const userProfile = data?.userProfile;

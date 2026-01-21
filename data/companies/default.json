@@ -1,0 +1,279 @@
+{
+  "companyName": "default",
+  "userProfile": {
+    "id": "1",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "summary": "Innovative Full-Stack Developer with 5+ years of experience building scalable web applications. Passionate about clean code, user experience, and continuous learning.",
+    "contactEmail": "john@example.com",
+    "phoneNumber": "(555) 123-4567",
+    "profileImageUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+    "githubUrl": "https://github.com/johndoe",
+    "linkedinUrl": "https://linkedin.com/in/johndoe",
+    "youtubeUrl": "",
+    "facebookUrl": "",
+    "twitterUrl": ""
+  },
+  "colleges": [
+    {
+      "id": "1",
+      "name": "University of Technology",
+      "degree": "Bachelor of Science in Computer Science",
+      "yearsAttended": "2015-2019",
+      "yearGraduated": 2019,
+      "monthGraduated": "May",
+      "city": "San Francisco",
+      "state": "CA",
+      "gpa": 3.8,
+      "isOnline": false,
+      "jobApplicationId": null
+    }
+  ],
+  "employers": [
+    {
+      "id": "1",
+      "name": "Tech Corp",
+      "city": "San Francisco",
+      "state": "CA",
+      "jobApplicationId": null
+    },
+    {
+      "id": "2",
+      "name": "StartupXYZ",
+      "city": "Austin",
+      "state": "TX",
+      "jobApplicationId": null
+    }
+  ],
+  "positions": [
+    {
+      "id": "1",
+      "name": "Senior Full-Stack Developer",
+      "employerId": "1",
+      "dateStarted": "2021-06-01",
+      "dateFinished": null,
+      "jobApplicationId": null
+    },
+    {
+      "id": "2",
+      "name": "Full-Stack Developer",
+      "employerId": "2",
+      "dateStarted": "2019-07-01",
+      "dateFinished": "2021-05-31",
+      "jobApplicationId": null
+    }
+  ],
+  "workExperiences": [
+    {
+      "id": "1",
+      "positionId": "1",
+      "description": "Led development of microservices architecture serving 1M+ users",
+      "isVisible": true,
+      "order": 1,
+      "jobApplicationId": null
+    },
+    {
+      "id": "2",
+      "positionId": "1",
+      "description": "Implemented CI/CD pipeline reducing deployment time by 60%",
+      "isVisible": true,
+      "order": 2,
+      "jobApplicationId": null
+    },
+    {
+      "id": "3",
+      "positionId": "2",
+      "description": "Built responsive React applications with TypeScript and Next.js",
+      "isVisible": true,
+      "order": 1,
+      "jobApplicationId": null
+    },
+    {
+      "id": "4",
+      "positionId": "2",
+      "description": "Designed RESTful APIs using Node.js and PostgreSQL",
+      "isVisible": true,
+      "order": 2,
+      "jobApplicationId": null
+    }
+  ],
+  "skillTopics": [
+    {
+      "id": "1",
+      "name": "Languages",
+      "order": 1,
+      "jobApplicationId": null
+    },
+    {
+      "id": "2",
+      "name": "Frameworks & Libraries",
+      "order": 2,
+      "jobApplicationId": null
+    },
+    {
+      "id": "3",
+      "name": "Tools & Platforms",
+      "order": 3,
+      "jobApplicationId": null
+    }
+  ],
+  "skillItems": [
+    {
+      "id": "1",
+      "description": "JavaScript/TypeScript",
+      "skillTopicId": "1",
+      "order": 1,
+      "jobApplicationId": null
+    },
+    {
+      "id": "2",
+      "description": "Python",
+      "skillTopicId": "1",
+      "order": 2,
+      "jobApplicationId": null
+    },
+    {
+      "id": "3",
+      "description": "React",
+      "skillTopicId": "2",
+      "order": 1,
+      "jobApplicationId": null
+    },
+    {
+      "id": "4",
+      "description": "Next.js",
+      "skillTopicId": "2",
+      "order": 2,
+      "jobApplicationId": null
+    },
+    {
+      "id": "5",
+      "description": "Node.js",
+      "skillTopicId": "2",
+      "order": 3,
+      "jobApplicationId": null
+    },
+    {
+      "id": "6",
+      "description": "Git",
+      "skillTopicId": "3",
+      "order": 1,
+      "jobApplicationId": null
+    },
+    {
+      "id": "7",
+      "description": "Docker",
+      "skillTopicId": "3",
+      "order": 2,
+      "jobApplicationId": null
+    },
+    {
+      "id": "8",
+      "description": "AWS",
+      "skillTopicId": "3",
+      "order": 3,
+      "jobApplicationId": null
+    }
+  ],
+  "technologies": [
+    {
+      "id": "1",
+      "name": "React",
+      "order": 1,
+      "jobApplicationId": null
+    },
+    {
+      "id": "2",
+      "name": "TypeScript",
+      "order": 2,
+      "jobApplicationId": null
+    },
+    {
+      "id": "3",
+      "name": "Node.js",
+      "order": 3,
+      "jobApplicationId": null
+    },
+    {
+      "id": "4",
+      "name": "PostgreSQL",
+      "order": 4,
+      "jobApplicationId": null
+    }
+  ],
+  "projects": [
+    {
+      "id": "1",
+      "name": "E-Commerce Platform",
+      "date": "2023-08-15",
+      "shortDescription": "Full-stack e-commerce solution with cart and payment processing",
+      "description": "Built a complete e-commerce platform using Next.js, Stripe for payments, and PostgreSQL. Features include user authentication, product catalog, shopping cart, order management, and admin dashboard.",
+      "imageThumbnailId": "img1",
+      "defaultOrder": 1,
+      "technologyIds": ["1", "2", "3", "4"],
+      "jobApplicationId": null
+    },
+    {
+      "id": "2",
+      "name": "Task Management App",
+      "date": "2023-05-20",
+      "shortDescription": "Collaborative project management tool with real-time updates",
+      "description": "Developed a real-time task management application with WebSockets for live updates. Includes team collaboration features, project boards, and analytics dashboard.",
+      "imageThumbnailId": "img2",
+      "defaultOrder": 2,
+      "technologyIds": ["1", "2", "3"],
+      "jobApplicationId": null
+    },
+    {
+      "id": "3",
+      "name": "Weather Dashboard",
+      "date": "2023-03-10",
+      "shortDescription": "Interactive weather forecast application",
+      "description": "Created a weather dashboard with interactive maps, 7-day forecasts, and location search. Integrated with OpenWeather API for real-time data.",
+      "imageThumbnailId": "img3",
+      "defaultOrder": 3,
+      "technologyIds": ["1", "2"],
+      "jobApplicationId": null
+    }
+  ],
+  "images": [
+    {
+      "id": "img1",
+      "description": "E-Commerce Platform Screenshot",
+      "size": 102400,
+      "imageUrl": "https://images.unsplash.com/photo-1557821552-17105176677c?w=800&q=80",
+      "projectId": "1",
+      "order": 1,
+      "jobApplicationId": null
+    },
+    {
+      "id": "img2",
+      "description": "Task Management App Screenshot",
+      "size": 98304,
+      "imageUrl": "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&q=80",
+      "projectId": "2",
+      "order": 1,
+      "jobApplicationId": null
+    },
+    {
+      "id": "img3",
+      "description": "Weather Dashboard Screenshot",
+      "size": 87040,
+      "imageUrl": "https://images.unsplash.com/photo-1592210454359-9043f067919b?w=800&q=80",
+      "projectId": "3",
+      "order": 1,
+      "jobApplicationId": null
+    }
+  ],
+  "certifications": [
+    {
+      "id": "1",
+      "name": "AWS Certified Developer",
+      "vendor": "Amazon Web Services",
+      "description": "Professional certification for AWS development",
+      "linkToSite": "https://aws.amazon.com/certification/",
+      "dateEarned": "2022-09-15",
+      "jobApplicationId": null
+    }
+  ]
+}

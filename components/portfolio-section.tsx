@@ -81,7 +81,7 @@ export default function PortfolioSection({
                                         <CardHeader className="p-0">
                                             {thumbnail && (
                                                 <Image
-                                                    src={thumbnail.base64Content}
+                                                    src={thumbnail.imageUrl || thumbnail.base64Content || '/placeholder.png'}
                                                     alt={project.name}
                                                     width={600}
                                                     height={400}
@@ -119,7 +119,7 @@ export default function PortfolioSection({
                                 <CarouselItem key={index}>
                                     <div className="p-1">
                                         <Image
-                                            src={image.base64Content}
+                                            src={image.imageUrl || image.base64Content || '/placeholder.png'}
                                             alt={`${selectedProject.name} image ${index + 1}`}
                                             width={800}
                                             height={600}

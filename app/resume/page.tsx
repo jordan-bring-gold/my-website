@@ -3,21 +3,13 @@
 
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Download, Mail, Phone, Linkedin, Github, Globe, Loader2 } from "lucide-react";
-import { loadCompanyData, getCompanyNames } from '@/lib/data-loader';
-
-import type { UserProfile, WorkExperience, Position, Employer, College, SkillTopic, SkillItem, Certification } from '@/lib/types';
+import { Download, Mail, Phone, Linkedin, Github } from "lucide-react";
 import * as React from 'react';
 
-// Generate static paths for all companies
-export async function generateStaticParams() {
-  const companies = getCompanyNames();
-  return companies
-    .filter(company => company !== 'default')
-    .map((company) => ({
-      company: company,
-    }));
-}
+import type { UserProfile, WorkExperience, Position, Employer, College, SkillTopic, SkillItem, Certification } from '@/lib/types';
+
+// Import default company data
+import defaultCompanyData from '@/data/companies/default.json';
 
 const formatDate = (date: any) => {
     if (!date) return '';
@@ -25,26 +17,8 @@ const formatDate = (date: any) => {
     return jsDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 }
 
-interface ResumePageProps {
-    params: {
-        company: string;
-    };
-}
-
-export default function ResumePage({ params }: ResumePageProps) {
-    const companyData = loadCompanyData(params.company);
-    
-    if (!companyData) {
-        return (
-            <div className="flex h-[calc(100vh-theme(spacing.16))] items-center justify-center">
-                <div className="text-center">
-                    <h2 className="text-2xl font-semibold">Company Not Found</h2>
-                    <p className="text-muted-foreground mt-2">No data available for this company.</p>
-                </div>
-            </div>
-        );
-    }
-
+export default function ResumePage() {
+    const companyData = defaultCompanyData;
     const userProfile = companyData?.userProfile || null;
     const workExperiences = companyData?.workExperiences || [];
     const positions = companyData?.positions || [];
@@ -64,16 +38,16 @@ export default function ResumePage({ params }: ResumePageProps) {
         )
     }
 
-    const sortedPositions = positions ? [...positions].sort((a, b) => {
+    const sortedPositions = positions ? [...positions].sort((a: any, b: any) => {
         const dateA = a.dateStarted instanceof Date ? a.dateStarted.getTime() : new Date(a.dateStarted).getTime();
         const dateB = b.dateStarted instanceof Date ? b.dateStarted.getTime() : new Date(b.dateStarted).getTime();
         return dateB - dateA;
     }) : [];
 
-    const groupedSkills = skillTopics ? skillTopics.map(topic => ({
+    const groupedSkills = skillTopics ? skillTopics.map((topic: any) => ({
         ...topic,
-        items: skillItems?.filter(item => item.skillTopicId === topic.id).map(item => item.description).join(', ') || ''
-    })).sort((a,b) => a.order - b.order) : [];
+        items: skillItems?.filter((item: any) => item.skillTopicId === topic.id).map((item: any) => item.description).join(', ') || ''
+    })).sort((a: any, b: any) => a.order - b.order) : [];
 
     return (
         <div className="container mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
@@ -110,9 +84,9 @@ export default function ResumePage({ params }: ResumePageProps) {
                 <section>
                     <h2 className="text-2xl font-headline font-semibold border-b pb-2">Work Experience</h2>
                     <div className="mt-4 space-y-6">
-                        {sortedPositions?.map(pos => {
-                            const employer = employers?.find(e => e.id === pos.employerId);
-                            const experiences = workExperiences?.filter(we => we.positionId === pos.id);
+                        {sortedPositions?.map((pos: any) => {
+                            const employer = employers?.find((e: any) => e.id === pos.employerId);
+                            const experiences = workExperiences?.filter((we: any) => we.positionId === pos.id);
                             return (
                                 <div key={pos.id}>
                                     <div className="flex justify-between items-baseline">
@@ -123,7 +97,7 @@ export default function ResumePage({ params }: ResumePageProps) {
                                     </div>
                                     <p className="text-md text-foreground/90">{employer?.name} | {employer?.city}, {employer?.state}</p>
                                     <ul className="mt-2 list-disc list-inside space-y-1 text-foreground/90">
-                                        {experiences?.map(exp => <li key={exp.id}>{exp.description}</li>)}
+                                        {experiences?.map((exp: any) => <li key={exp.id}>{exp.description}</li>)}
                                     </ul>
                                 </div>
                             )
@@ -136,7 +110,7 @@ export default function ResumePage({ params }: ResumePageProps) {
                 <section>
                     <h2 className="text-2xl font-headline font-semibold border-b pb-2">Education</h2>
                      <div className="mt-4 space-y-4">
-                        {colleges?.map(college => (
+                        {colleges?.map((college: any) => (
                              <div key={college.id}>
                                 <div className="flex justify-between items-baseline">
                                     <h3 className="text-lg font-semibold">{college.name}</h3>
@@ -154,7 +128,7 @@ export default function ResumePage({ params }: ResumePageProps) {
                 <section>
                     <h2 className="text-2xl font-headline font-semibold border-b pb-2">Skills</h2>
                     <div className="mt-4 space-y-2">
-                        {groupedSkills?.map(skill => (
+                        {groupedSkills?.map((skill: any) => (
                             <div key={skill.id}>
                                 <h3 className="font-semibold">{skill.name}:</h3>
                                 <p className="text-foreground/90">{skill.items}</p>
@@ -166,5 +140,3 @@ export default function ResumePage({ params }: ResumePageProps) {
         </div>
     )
 }
-
-    

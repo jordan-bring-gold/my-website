@@ -4,30 +4,18 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Github, Linkedin, Youtube, Facebook } from 'lucide-react';
 import { Button } from './ui/button';
-
-import { UserProfile } from '../lib/types';
-import { getUserProfile } from '@/lib/db.client';
-
 import { XIcon } from './icons/x-icon';
 import * as React from 'react';
 
+// Import default company data for footer
+import defaultCompanyData from '@/data/companies/default.json';
+
 export default function Footer() {
   const [isClient, setIsClient] = React.useState(false);
-  const [userProfile, setUserProfile] = React.useState<UserProfile | null>(null);
   const router = useRouter();
-
-  React.useEffect(() => {
-    setIsClient(true);
-    (async () => {
-      try {
-        const profile = await getUserProfile();
-        setUserProfile(profile || null);
-      } catch (err) {
-        console.error('Failed to load user profile for footer', err);
-      }
-    })();
-  }, []);
-
+  
+  // Use default company data for footer
+  const userProfile = defaultCompanyData?.userProfile;
 
   const socialLinks = [
     {

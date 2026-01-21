@@ -1,36 +1,21 @@
 'use client';
 
-import { Github, Linkedin, Mail, Send } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import Link from "next/link";
 import * as React from 'react';
 import { useToast } from "@/hooks/use-toast";
-import { loadCompanyData, getCompanyNames } from '@/lib/data-loader';
 import type { UserProfile } from '@/lib/types';
 
-// Generate static paths for all companies
-export async function generateStaticParams() {
-  const companies = getCompanyNames();
-  return companies
-    .filter(company => company !== 'default')
-    .map((company) => ({
-      company: company,
-    }));
-}
+// Import default company data
+import defaultCompanyData from '@/data/companies/default.json';
 
-interface ContactPageProps {
-    params: {
-        company: string;
-    };
-}
-
-export default function ContactPage({ params }: ContactPageProps) {
+export default function ContactPage() {
     const { toast } = useToast();
-    const companyData = loadCompanyData(params.company);
+    const companyData = defaultCompanyData;
     const userProfile = companyData?.userProfile;
     
     const [name, setName] = React.useState('');
@@ -38,17 +23,6 @@ export default function ContactPage({ params }: ContactPageProps) {
     const [subject, setSubject] = React.useState('');
     const [message, setMessage] = React.useState('');
     const [isLoading, setIsLoading] = React.useState(false);
-
-    if (!companyData) {
-        return (
-            <div className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
-                <div className="text-center">
-                    <h2 className="text-2xl font-semibold">Company Not Found</h2>
-                    <p className="text-muted-foreground mt-2">No data available for this company.</p>
-                </div>
-            </div>
-        );
-    }
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -73,8 +47,6 @@ export default function ContactPage({ params }: ContactPageProps) {
                 setSubject('');
                 setMessage('');
             } else {
-                // throw error and show error message from response
-                
                 throw new Error('Failed to send message');
             }
         } catch (error) {
@@ -85,15 +57,12 @@ export default function ContactPage({ params }: ContactPageProps) {
         }
     };
 
-
     return (
         <div className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
             <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
-
-         
-                    <div>
-                        <h1 className="text-4xl font-headline font-extrabold tracking-tight lg:text-5xl">Get in Touch</h1>
-                        <p className="mt-4 text-xl text-muted-foreground">
+                <div>
+                    <h1 className="text-4xl font-headline font-extrabold tracking-tight lg:text-5xl">Get in Touch</h1>
+                    <p className="mt-4 text-xl text-muted-foreground">
                         I'm always open to discussing new projects, creative ideas or opportunities to be part of an ambitious vision.
                     </p>
                     <div className="mt-8 space-y-4">
@@ -115,13 +84,7 @@ export default function ContactPage({ params }: ContactPageProps) {
                                 <span className="group-hover:text-primary transition-colors">LinkedIn</span>
                             </a>
                         )}
-
-                        
-                        
-                        
-                       
                     </div>
-                    
                 </div>
                 <div>
                     <Card>

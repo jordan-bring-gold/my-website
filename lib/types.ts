@@ -80,7 +80,8 @@ export interface Image {
   id: string;
   description?: string;
   size: number;
-  base64Content: string;
+  base64Content?: string;
+  imageUrl?: string;
   projectId: string;
   order: number;
   jobApplicationId: string | null;
