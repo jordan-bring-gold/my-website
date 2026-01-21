@@ -234,3 +234,5 @@ MIT
 ## Support
 
 For issues or questions, please open an issue on GitHub.
+
+use "npx serve out" to localhost out static files
