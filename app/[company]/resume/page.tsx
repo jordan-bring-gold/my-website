@@ -1,6 +1,4 @@
 
-'use client';
-
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Download, Mail, Phone, Linkedin, Github, Globe, Loader2 } from "lucide-react";
