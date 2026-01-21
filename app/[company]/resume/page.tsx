@@ -86,7 +86,7 @@ export default function ResumePage({ params }: ResumePageProps) {
                 </Button>
             </div>
 
-            <div className="select-none" onContextMenu={(e) => e.preventDefault()}>
+            <div className="select-none">
                 <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground mb-8">
                     {userProfile?.contactEmail && <a href={`mailto:${userProfile.contactEmail}`} className="flex items-center gap-2 hover:text-primary"><Mail className="h-4 w-4" /> {userProfile.contactEmail}</a>}
                     {userProfile?.phoneNumber && <a href={`tel:${userProfile.phoneNumber}`} className="flex items-center gap-2 hover:text-primary"><Phone className="h-4 w-4" /> {userProfile.phoneNumber}</a>}
