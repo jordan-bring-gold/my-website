@@ -12,7 +12,7 @@ export default function PortfolioPage() {
             <div className="text-center mb-12">
                 <h1 className="text-4xl font-headline font-extrabold tracking-tight lg:text-5xl">My Portfolio</h1>
                 <p className="mt-4 max-w-2xl mx-auto text-xl text-muted-foreground">
-                    A collection of projects I've worked on.
+                    A collection of projects I&apos;ve worked on.
                 </p>
             </div>
             

@@ -93,7 +93,7 @@ export default function ContactPage({ params }: ContactPageProps) {
                     <div>
                         <h1 className="text-4xl font-headline font-extrabold tracking-tight lg:text-5xl">Get in Touch</h1>
                         <p className="mt-4 text-xl text-muted-foreground">
-                        I'm always open to discussing new projects, creative ideas or opportunities to be part of an ambitious vision.
+                        I&apos;m always open to discussing new projects, creative ideas or opportunities to be part of an ambitious vision.
                     </p>
                     <div className="mt-8 space-y-4">
                         {userProfile?.contactEmail && (
@@ -126,7 +126,7 @@ export default function ContactPage({ params }: ContactPageProps) {
                     <Card>
                         <CardHeader>
                             <CardTitle>Send me a Message</CardTitle>
-                            <CardDescription>Fill out the form below and I'll get back to you as soon as possible.</CardDescription>
+                            <CardDescription>Fill out the form below and I&apos;ll get back to you as soon as possible.</CardDescription>
                         </CardHeader>
                         <CardContent>
                             <form className="space-y-4" onSubmit={handleSubmit}>
