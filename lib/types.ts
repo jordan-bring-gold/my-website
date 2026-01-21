@@ -34,8 +34,8 @@ export interface Position {
   id: string;
   name: string;
   employerId: string;
-  dateStarted: Date;
-  dateFinished: Date | null;
+  dateStarted: Date | string;
+  dateFinished: Date | string | null;
   jobApplicationId: string | null;
 }
 
@@ -53,7 +53,7 @@ export interface WorkExperience {
 export interface Accomplishment {
   id: string;
   description: string;
-  date: Date;
+  date: Date | string;
   jobApplicationId: string | null;
 }
 
@@ -67,7 +67,7 @@ export interface Technology {
 export interface Project {
   id: string;
   name: string;
-  date: Date;
+  date: Date | string;
   shortDescription: string;
   description: string;
   imageThumbnailId: string;
@@ -93,7 +93,7 @@ export interface Certification {
   vendor?: string;
   description: string;
   linkToSite: string;
-  dateEarned: Date;
+  dateEarned: Date | string;
   jobApplicationId: string | null;
 }
 
