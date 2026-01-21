@@ -1,23 +1,49 @@
-import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Star, Code, Briefcase, DraftingCompass } from 'lucide-react';
 import PortfolioSection from '@/components/portfolio-section';
+import { loadCompanyData, getCompanyNames } from '@/lib/data-loader';
 
 import type { Technology, SkillItem, UserProfile, Project, Image as ProjectImage } from '@/lib/types';
 
-// Import default company data (will be loaded at build time)
-import defaultCompanyData from '@/data/companies/default.json';
+// Generate static paths for all companies
+export async function generateStaticParams() {
+  const companies = getCompanyNames();
+  return companies
+    .filter(company => company !== 'default')
+    .map((company) => ({
+      company: company,
+    }));
+}
 
-export default function Home() {
-  const data = defaultCompanyData;
+interface CompanyHomeProps {
+  params: {
+    company: string;
+  };
+}
+
+export default function CompanyHome({ params }: CompanyHomeProps) {
+  const companyData = loadCompanyData(params.company);
+  
+  if (!companyData) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-semibold">Company Not Found</h2>
+          <p className="text-muted-foreground mt-2">No data available for this company.</p>
+        </div>
+      </div>
+    );
+  }
+
+  const data = companyData;
   const technologies = data?.technologies || [];
   const skillItems = data?.skillItems || [];
   const userProfile = data?.userProfile;
 
-  // Combine skills at build time
+  // Combine and shuffle skills at build time
   const allSkills = new Set<string>();
   technologies.forEach(tech => allSkills.add(tech.name));
   skillItems.forEach(item => allSkills.add(item.description));
@@ -55,12 +81,12 @@ export default function Home() {
             </p>
             <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
               <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                <Link href="/resume">
+                <Link href={`/${params.company}/resume`}>
                   View Resume <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
               <Button asChild size="lg" variant="secondary">
-                <Link href="/portfolio">See Projects</Link>
+                <Link href={`/${params.company}/portfolio`}>See Projects</Link>
               </Button>
             </div>
           </div>
@@ -131,7 +157,7 @@ export default function Home() {
           </div>
           <div className="mt-12 text-center">
             <Button asChild variant="outline">
-              <Link href="/portfolio">View All Projects <ArrowRight className="ml-2 h-4 w-4" /></Link>
+              <Link href={`/${params.company}/portfolio`}>View All Projects <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
           </div>
         </div>

@@ -2,7 +2,7 @@
   "companyName": "tesla",
   "userProfile": {
     "id": "1",
-    "name": "John Doe",
+    "name": "John Doe tesla",
     "email": "john@example.com",
     "summary": "Passionate Full-Stack Developer focused on sustainable technology and innovation. 5+ years building high-performance applications with modern frameworks. Excited about contributing to Tesla's mission of accelerating the world's transition to sustainable energy.",
     "contactEmail": "john@example.com",
@@ -17,7 +17,7 @@
   "colleges": [
     {
       "id": "1",
-      "name": "University of Technology",
+      "name": "University of Technology tesla",
       "degree": "Bachelor of Science in Computer Science",
       "yearsAttended": "2015-2019",
       "yearGraduated": 2019,
@@ -32,7 +32,7 @@
   "employers": [
     {
       "id": "1",
-      "name": "Tech Corp",
+      "name": "Tech Corp tesla",
       "city": "San Francisco",
       "state": "CA",
       "jobApplicationId": null
@@ -48,7 +48,7 @@
   "positions": [
     {
       "id": "1",
-      "name": "Senior Full-Stack Developer",
+      "name": "Senior Full-Stack Developer tesla",
       "employerId": "1",
       "dateStarted": "2021-06-01",
       "dateFinished": null,
@@ -67,7 +67,7 @@
     {
       "id": "1",
       "positionId": "1",
-      "description": "Led development of real-time monitoring dashboard for IoT devices, processing 10M+ events daily",
+      "description": "tesla Led development of real-time monitoring dashboard for IoT devices, processing 10M+ events daily",
       "isVisible": true,
       "order": 1,
       "jobApplicationId": null
@@ -120,7 +120,7 @@
   "skillItems": [
     {
       "id": "1",
-      "description": "JavaScript/TypeScript",
+      "description": "JavaScript/TypeScript tesla",
       "skillTopicId": "1",
       "order": 1,
       "jobApplicationId": null
@@ -224,7 +224,7 @@
   "projects": [
     {
       "id": "1",
-      "name": "IoT Energy Monitor",
+      "name": "IoT Energy Monitor tesla",
       "date": "2023-09-20",
       "shortDescription": "Real-time energy consumption tracking for smart homes",
       "description": "Developed a comprehensive IoT platform for monitoring and optimizing home energy usage. Features include real-time dashboards, predictive analytics, and automated alerts. Reduced energy costs by 30% for pilot users.",
@@ -235,7 +235,7 @@
     },
     {
       "id": "2",
-      "name": "EV Charging Station Finder",
+      "name": "EV Charging Station Finder tesla",
       "date": "2023-06-15",
       "shortDescription": "Mobile app for locating and reserving EV charging stations",
       "description": "Built a cross-platform mobile application helping EV drivers find nearby charging stations, check availability in real-time, and reserve charging slots. Integrated with payment processing and route planning.",
@@ -246,7 +246,7 @@
     },
     {
       "id": "3",
-      "name": "Solar Panel Analytics Dashboard",
+      "name": "Solar Panel Analytics Dashboard tesla",
       "date": "2023-02-10",
       "shortDescription": "Performance monitoring for solar installations",
       "description": "Created an analytics platform for tracking solar panel performance, weather correlation, and energy production forecasting. Provides maintenance alerts and ROI calculations.",
