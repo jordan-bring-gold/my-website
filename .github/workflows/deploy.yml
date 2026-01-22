@@ -21,7 +21,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout public repo
         uses: actions/checkout@v4
       
       - name: Checkout private config repo
@@ -29,7 +29,14 @@ jobs:
         with:
           repository: jordan-bring-gold/my-website-secrets
           token: ${{ secrets.PRIVATE_REPO_TOKEN }}
-          path: companies
+          path: private-config
+      
+      - name: Copy JSON files to expected location
+        run: |
+          mkdir -p data/companies
+          cp private-config/companies/*.json data/companies/
+          echo "✅ JSON files copied successfully:"
+          ls -la data/companies/
       
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -42,6 +49,8 @@ jobs:
       
       - name: Build with Next.js
         run: npm run build
+        env:
+          NODE_ENV: production
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
