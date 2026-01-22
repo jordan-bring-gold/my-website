@@ -5,6 +5,8 @@ on:
     branches:
       - main
   workflow_dispatch:
+  repository_dispatch:
+    types: [config-updated]
 
 permissions:
   contents: read
@@ -21,6 +23,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      
+      - name: Checkout private config repo
+        uses: actions/checkout@v4
+        with:
+          repository: jordan-bring-gold/my-website-secrets
+          token: ${{ secrets.PRIVATE_REPO_TOKEN }}
+          path: companies
       
       - name: Setup Node
         uses: actions/setup-node@v4
