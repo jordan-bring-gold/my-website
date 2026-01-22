@@ -19,13 +19,14 @@ export async function generateStaticParams() {
 }
 
 interface CompanyHomeProps {
-  params: {
+  params: Promise<{
     company: string;
-  };
+  }>;
 }
 
-export default function CompanyHome({ params }: CompanyHomeProps) {
-  const companyData = loadCompanyData(params.company);
+export default async function CompanyHome({ params }: CompanyHomeProps) {
+  const { company } = await params;
+  const companyData = loadCompanyData(company);
   
   if (!companyData) {
     return (
@@ -81,12 +82,12 @@ export default function CompanyHome({ params }: CompanyHomeProps) {
             </p>
             <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
               <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                <Link href={`/${params.company}/resume`}>
+                <Link href={`/${company}/resume`}>
                   View Resume <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
               <Button asChild size="lg" variant="secondary">
-                <Link href={`/${params.company}/portfolio`}>See Projects</Link>
+                <Link href={`/${company}/portfolio`}>See Projects</Link>
               </Button>
             </div>
           </div>
@@ -157,7 +158,7 @@ export default function CompanyHome({ params }: CompanyHomeProps) {
           </div>
           <div className="mt-12 text-center">
             <Button asChild variant="outline">
-              <Link href={`/${params.company}/portfolio`}>View All Projects <ArrowRight className="ml-2 h-4 w-4" /></Link>
+              <Link href={`/${company}/portfolio`}>View All Projects <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
           </div>
         </div>

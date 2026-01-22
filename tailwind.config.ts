@@ -59,9 +59,9 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        body: ['Inter', 'system-ui', 'sans-serif'],
-        headline: ['Inter', 'system-ui', 'sans-serif'],
-        mono: ['Source Code Pro', 'monospace'],
+        body: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
+        headline: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-source-code-pro)', 'Source Code Pro', 'monospace'],
       },
       keyframes: {
         "accordion-down": {

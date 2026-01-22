@@ -11,12 +11,13 @@ export async function generateStaticParams() {
     }));
 }
 
-export default function CompanyLayout({
+export default async function CompanyLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: { company: string };
+  params: Promise<{ company: string }>;
 }) {
+  await params; // Await params even if not using it
   return <>{children}</>;
 }

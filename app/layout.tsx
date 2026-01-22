@@ -5,7 +5,19 @@ import { cn } from '../lib/utils';
 import { Toaster } from '../components/ui/toaster';
 import Header from '../components/header';
 import Footer from '../components/footer';
+import { Inter, Source_Code_Pro } from 'next/font/google';
 
+const inter = Inter({ 
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const sourceCodePro = Source_Code_Pro({ 
+  subsets: ['latin'],
+  variable: '--font-source-code-pro',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'Jordan Bringgold',
@@ -18,15 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Code+Pro:wght@400;500;600&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${sourceCodePro.variable}`}>
       <body className={cn('min-h-screen font-body antialiased flex flex-col')}>
         
           <Header />

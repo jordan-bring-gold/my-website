@@ -13,13 +13,14 @@ export async function generateStaticParams() {
 }
 
 interface PortfolioPageProps {
-    params: {
+    params: Promise<{
         company: string;
-    };
+    }>;
 }
 
-export default function PortfolioPage({ params }: PortfolioPageProps) {
-    const companyData = loadCompanyData(params.company);
+export default async function PortfolioPage({ params }: PortfolioPageProps) {
+    const { company } = await params;
+    const companyData = loadCompanyData(company);
     
     if (!companyData) {
         return (

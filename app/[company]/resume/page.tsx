@@ -24,13 +24,14 @@ const formatDate = (date: any) => {
 }
 
 interface ResumePageProps {
-    params: {
+    params: Promise<{
         company: string;
-    };
+    }>;
 }
 
-export default function ResumePage({ params }: ResumePageProps) {
-    const companyData = loadCompanyData(params.company);
+export default async function ResumePage({ params }: ResumePageProps) {
+    const { company } = await params;
+    const companyData = loadCompanyData(company);
     
     if (!companyData) {
         return (

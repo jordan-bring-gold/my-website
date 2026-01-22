@@ -15,13 +15,14 @@ export async function generateStaticParams() {
 }
 
 interface ContactPageProps {
-    params: {
+    params: Promise<{
         company: string;
-    };
+    }>;
 }
 
-export default function ContactPage({ params }: ContactPageProps) {
-    const companyData = loadCompanyData(params.company);
+export default async function ContactPage({ params }: ContactPageProps) {
+    const { company } = await params;
+    const companyData = loadCompanyData(company);
     const userProfile = companyData?.userProfile;
 
     if (!companyData) {
