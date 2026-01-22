@@ -5,9 +5,8 @@ const nextConfig = {
     unoptimized: true,
   },
   trailingSlash: true,
-  // Ensures proper routing for GitHub Pages
-  // basePath: process.env.NODE_ENV === 'production' ? '' : '',
-  basePath: process.env.GITHUB_ACTIONS ? '/my-website' : '',
+  // No basePath needed for custom domain
+  basePath: '',
 }
 
 module.exports = nextConfig
