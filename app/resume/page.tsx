@@ -117,7 +117,7 @@ export default function ResumePage() {
                                     <p className="text-sm text-muted-foreground">{college.yearGraduated}</p>
                                 </div>
                                 <p className="text-md text-foreground/90">{college.degree}</p>
-                                <!--<p className="text-sm text-muted-foreground">GPA: {college.gpa}</p>-->
+                                {/*<p className="text-sm text-muted-foreground">GPA: {college.gpa}</p>*/}
                             </div>
                         ))}
                     </div>
