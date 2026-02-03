@@ -95,7 +95,7 @@ export default async function ResumePage({ params }: ResumePageProps) {
                     {userProfile?.githubUrl && <a href={userProfile.githubUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-primary"><Github className="h-4 w-4" /> GitHub</a>}
                 </div>
 
-                {userProfile?.summary && (
+                <!--{userProfile?.summary && (
                     <section>
                         <h2 className="text-2xl font-headline font-semibold border-b pb-2">Summary</h2>
                         <p className="mt-4 text-foreground/90 whitespace-pre-wrap">
@@ -104,7 +104,7 @@ export default async function ResumePage({ params }: ResumePageProps) {
                     </section>
                 )}
 
-                <Separator className="my-8" />
+                <Separator className="my-8" />-->
 
                 <section>
                     <h2 className="text-2xl font-headline font-semibold border-b pb-2">Work Experience</h2>
@@ -142,7 +142,7 @@ export default async function ResumePage({ params }: ResumePageProps) {
                                     <p className="text-sm text-muted-foreground">{college.yearGraduated}</p>
                                 </div>
                                 <p className="text-md text-foreground/90">{college.degree}</p>
-                                <p className="text-sm text-muted-foreground">GPA: {college.gpa}</p>
+                                <!--<p className="text-sm text-muted-foreground">GPA: {college.gpa}</p>-->
                             </div>
                         ))}
                     </div>

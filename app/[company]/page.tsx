@@ -154,7 +154,7 @@ export default async function CompanyHome({ params }: CompanyHomeProps) {
             </p>
           </div>
           <div  className="container mx-auto px-4 pt-10 pb-5 sm:px-6 lg:px-8">
-            <PortfolioSection projects={data?.projects} technologies={data?.technologies} images={data?.images} />
+            <PortfolioSection projects={data?.projects?.slice(0, 3)} technologies={data?.technologies} images={data?.images} />
           </div>
           <div className="mt-12 text-center">
             <Button asChild variant="outline">
@@ -185,6 +185,27 @@ export default async function CompanyHome({ params }: CompanyHomeProps) {
              {shuffledSkills.length === 0 && (
                 <p className="text-muted-foreground">No skills or technologies have been added yet.</p>
              )}
+          </div>
+        </div>
+      </section>
+
+  {/* Get in Touch Section with short message and a button to redirect to the contact page */}
+      <section className="bg-muted py-16 sm:py-24">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="flex flex-col items-center text-center">
+            <h2 className="text-3xl font-headline font-bold tracking-tighter sm:text-4xl md:text-5xl">
+              Interested?
+            </h2>
+            <p className="mx-auto mt-4 max-w-[700px] text-muted-foreground md:text-xl/relaxed">
+              Send me a follow-up message!
+            </p>
+            <div className="mt-8">
+              <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                <Link href="/contact">
+                  Connect <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
