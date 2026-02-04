@@ -19,6 +19,7 @@ A Next.js-based static website generator that creates personalized portfolio web
 
 ```bash
 npm install
+npm ci --legacy-peer-deps
 ```
 
 ### 2. Add  Data
