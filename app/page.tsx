@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import PortfolioSection from "@/components/portfolio-section";
 import ScrollingBanner from "@/components/scrolling-banner";
+import { CompanyAwareLink } from "@/components/company-aware-link";
 
 import type {
   Skill,
@@ -71,12 +72,14 @@ export default function Home() {
                 size="lg"
                 className="bg-primary text-primary-foreground hover:bg-primary/90"
               >
-                <Link href="/resume">
+                <CompanyAwareLink href="/resume">
                   View Resume <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
+                </CompanyAwareLink>
               </Button>
               <Button asChild size="lg" variant="secondary">
-                <Link href="/portfolio">See Projects</Link>
+                <CompanyAwareLink href="/portfolio">
+                  See Projects
+                </CompanyAwareLink>
               </Button>
             </div>
           </div>
@@ -142,15 +145,15 @@ export default function Home() {
           <div className="container mx-auto px-4 pt-10 pb-5 sm:px-6 lg:px-8">
             <PortfolioSection
               projects={data?.projects?.slice(0, 3)}
-              skill={data?.skills}
+              skills={data?.skills}
               images={data?.images}
             />
           </div>
           <div className="mt-12 text-center">
             <Button asChild variant="outline">
-              <Link href="/portfolio">
+              <CompanyAwareLink href="/portfolio">
                 View All Projects <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
+              </CompanyAwareLink>
             </Button>
           </div>
         </div>
@@ -218,9 +221,9 @@ export default function Home() {
                 variant="outline"
                 className="border-0 bg-white text-black hover:bg-primary hover:text-white"
               >
-                <Link href="/contact">
+                <CompanyAwareLink href="/contact">
                   Get in Touch <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
+                </CompanyAwareLink>
               </Button>
             </div>
           </div>

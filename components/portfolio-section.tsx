@@ -10,7 +10,7 @@ import {
 } from "./ui/card";
 import { Badge } from "./ui/badge";
 
-import type { Project, Image as ProjectImage, Technology } from "../lib/types";
+import type { Project, Image as ProjectImage, Skill } from "../lib/types";
 import * as React from "react";
 import {
   Dialog,
@@ -32,7 +32,7 @@ interface PortfolioSectionProps {
   skills?: Skill[];
   images?: ProjectImage[];
   hideDate?: boolean;
-  hideTechs?: boolean;
+  hideSkills?: boolean;
 }
 
 export default function PortfolioSection({
@@ -66,7 +66,7 @@ export default function PortfolioSection({
   }, [images]);
 
   const skillsById = React.useMemo(() => {
-    if (!skills) return new Map<string, Technology>();
+    if (!skills) return new Map<string, Skill>();
     return new Map(skills.map((skill) => [skill.id, skill]));
   }, [skills]);
 
@@ -90,7 +90,7 @@ export default function PortfolioSection({
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {projects.map((project) => {
               const thumbnail = imagesById.get(project.imageThumbnailId);
-              const projectSkills = project.skillsIds
+              const projectSkills = project.skillIds
                 ?.map((id) => skillsById.get(id))
                 .filter(Boolean) as Skill[];
 

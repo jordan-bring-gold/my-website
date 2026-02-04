@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   Sheet,
   SheetContent,
@@ -21,12 +22,27 @@ const navLinks = [
 
 export default function Header() {
   const [isSheetOpen, setIsSheetOpen] = React.useState(false);
+  const pathname = usePathname();
+
+  // Extract company name from pathname if present
+  const companyMatch = pathname?.match(/^\/([^\/]+)\/?/);
+  const company =
+    companyMatch?.[1] &&
+    companyMatch[1] !== "portfolio" &&
+    companyMatch[1] !== "resume" &&
+    companyMatch[1] !== "contact"
+      ? companyMatch[1]
+      : null;
+  const baseUrl = company ? `/${company}` : "";
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-2xl items-center pl-2 md:pl-4 lg:pl-8">
         <div className="mr-4 flex items-center">
-          <Link href="/" className="mr-6 flex items-center space-x-2 ">
+          <Link
+            href={baseUrl || "/"}
+            className="mr-6 flex items-center space-x-2 "
+          >
             <Briefcase className="h-6 w-6 text-primary" />
             <span className="font-bold sm:inline-block">Jordan Bringgold</span>
           </Link>
@@ -34,7 +50,7 @@ export default function Header() {
             {navLinks.map((link) => (
               <Link
                 key={link.href}
-                href={link.href}
+                href={`${baseUrl}${link.href}`}
                 className="font-medium text-foreground/60 transition-colors hover:text-foreground/80"
               >
                 {link.label}
@@ -62,7 +78,7 @@ export default function Header() {
               </SheetHeader>
               <div className="flex flex-col gap-6 pt-6">
                 <Link
-                  href="/"
+                  href={baseUrl || "/"}
                   className="mr-6 flex items-center space-x-2"
                   onClick={() => setIsSheetOpen(false)}
                 >
@@ -72,7 +88,7 @@ export default function Header() {
                 {navLinks.map((link) => (
                   <Link
                     key={link.href}
-                    href={link.href}
+                    href={`${baseUrl}${link.href}`}
                     className="text-lg font-medium text-foreground/80 transition-colors hover:text-foreground"
                     onClick={() => setIsSheetOpen(false)}
                   >
