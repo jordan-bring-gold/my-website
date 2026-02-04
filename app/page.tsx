@@ -11,6 +11,7 @@ import {
   DraftingCompass,
 } from "lucide-react";
 import PortfolioSection from "@/components/portfolio-section";
+import ScrollingBanner from "@/components/scrolling-banner";
 
 import type {
   Skill,
@@ -168,22 +169,27 @@ export default function Home() {
               high-quality software.
             </p>
           </div>
-          <div className="mt-12 flex flex-wrap justify-center gap-3">
-            {shuffledSkills.map((skill) => (
-              <Badge
-                key={skill}
-                variant="secondary"
-                className="px-4 py-2 text-sm"
-              >
-                {skill}
-              </Badge>
-            ))}
-            {shuffledSkills.length === 0 && (
+          {shuffledSkills.length > 0 ? (
+            <div className="mt-12">
+              <ScrollingBanner speed={30} pauseOnHover={false}>
+                {shuffledSkills.map((skill, index) => (
+                  <Badge
+                    key={`${skill}-${index}`}
+                    variant="secondary"
+                    className="px-4 py-2 text-sm whitespace-nowrap flex-shrink-0"
+                  >
+                    {skill}
+                  </Badge>
+                ))}
+              </ScrollingBanner>
+            </div>
+          ) : (
+            <div className="mt-12 text-center">
               <p className="text-muted-foreground">
                 No skills have been added yet.
               </p>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </section>
 
