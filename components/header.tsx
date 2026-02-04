@@ -1,23 +1,22 @@
+"use client";
 
-'use client';
-
-import * as React from 'react';
-import Link from 'next/link';
+import * as React from "react";
+import Link from "next/link";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from './ui/sheet';
-import { Button } from './ui/button';
-import { Menu, Briefcase } from 'lucide-react';
-import { ThemeToggle } from './theme-toggle';
+} from "./ui/sheet";
+import { Button } from "./ui/button";
+import { Menu, Briefcase } from "lucide-react";
+import { ThemeToggle } from "./theme-toggle";
 
 const navLinks = [
-  { href: '/portfolio', label: 'Portfolio' },
-  { href: '/resume', label: 'Resume' },
-  { href: '/contact', label: 'Contact' },
+  { href: "/portfolio", label: "Portfolio" },
+  { href: "/resume", label: "Resume" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Header() {
@@ -25,9 +24,9 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 max-w-screen-2xl items-center">
+      <div className="container flex h-14 max-w-screen-2xl items-center pl-2 md:pl-4 lg:pl-8">
         <div className="mr-4 flex items-center">
-          <Link href="/" className="mr-6 flex items-center space-x-2 pl-2 " >
+          <Link href="/" className="mr-6 flex items-center space-x-2 ">
             <Briefcase className="h-6 w-6 text-primary" />
             <span className="font-bold sm:inline-block">Jordan Bringgold</span>
           </Link>

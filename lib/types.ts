@@ -1,6 +1,3 @@
-
-
-
 export interface College {
   id: string;
   name: string;
@@ -57,13 +54,6 @@ export interface Accomplishment {
   jobApplicationId: string | null;
 }
 
-export interface Technology {
-    id: string;
-    name: string;
-    order: number;
-    jobApplicationId: string | null;
-}
-
 export interface Project {
   id: string;
   name: string;
@@ -72,7 +62,7 @@ export interface Project {
   description: string;
   imageThumbnailId: string;
   defaultOrder: number;
-  technologyIds: string[];
+  skillIds: string[];
   jobApplicationId: string | null;
 }
 
@@ -97,7 +87,15 @@ export interface Certification {
   jobApplicationId: string | null;
 }
 
-export type JobApplicationStatus = 'new' | 'ignore' | 'applied' | 'heard back' | 'interviewing' | 'nope' | 'offer!' | 'accepted';
+export type JobApplicationStatus =
+  | "new"
+  | "ignore"
+  | "applied"
+  | "heard back"
+  | "interviewing"
+  | "nope"
+  | "offer!"
+  | "accepted";
 
 export interface JobApplication {
   id: string;
@@ -105,7 +103,7 @@ export interface JobApplication {
   positionTitle: string;
   email: string;
   phoneNumber: string;
-  location: 'hybrid' | 'remote' | 'on-site';
+  location: "hybrid" | "remote" | "on-site";
   city?: string;
   state?: string;
   jobDescription: string;
@@ -146,13 +144,15 @@ export interface ResumeTemplate {
   ejsCode: string;
   cssCode?: string;
   jsCode?: string;
-  paperSize: 'A4' | 'Letter';
-  margins: {
-    top: number;
-    bottom: number;
-    left: number;
-    right: number;
-  } | string;
+  paperSize: "A4" | "Letter";
+  margins:
+    | {
+        top: number;
+        bottom: number;
+        left: number;
+        right: number;
+      }
+    | string;
   createdDate: Date;
   isDefault: boolean;
   thumbnailUrl: string;
@@ -168,19 +168,11 @@ export interface ResumeDraft {
   templateId: string;
 }
 
-export interface SkillTopic {
+export interface Skill {
   id: string;
-  name: string;
+  description: string;
   order: number;
   jobApplicationId: string | null;
-}
-
-export interface SkillItem {
-    id: string;
-    description: string;
-    skillTopicId: string;
-    order: number;
-    jobApplicationId: string | null;
 }
 
 export interface Interest {
