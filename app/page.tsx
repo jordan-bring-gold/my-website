@@ -194,20 +194,29 @@ export default function Home() {
       </section>
 
       {/* Get in Touch Section with short message and a button to redirect to the contact page */}
-      <section className="bg-muted py-16 sm:py-24">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="flex flex-col items-center text-center">
+      <section className="relative bg-muted py-16 sm:py-24 overflow-hidden">
+        <Image
+          src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920"
+          alt="Professional business person in modern office setting"
+          fill
+          className="object-cover grayscale"
+          data-ai-hint="professional portrait or business setting"
+        />
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="container relative z-10 mx-auto px-4 md:px-6">
+          <div className="flex flex-col items-center text-center text-white">
             <h2 className="text-3xl font-headline font-bold tracking-tighter sm:text-4xl md:text-5xl">
               Interested?
             </h2>
-            <p className="mx-auto mt-4 max-w-[700px] text-muted-foreground md:text-xl/relaxed">
+            <p className="mx-auto mt-4 max-w-[700px] text-white/90 md:text-xl/relaxed">
               Feel free to reach out for collaborations or just a friendly chat.
             </p>
             <div className="mt-8">
               <Button
                 asChild
                 size="lg"
-                className="bg-primary text-primary-foreground hover:bg-primary/90"
+                variant="outline"
+                className="border-0 bg-white text-black hover:bg-primary hover:text-white"
               >
                 <Link href="/contact">
                   Get in Touch <ArrowRight className="ml-2 h-5 w-5" />
