@@ -194,14 +194,9 @@ export default function ResumePage() {
           <h2 className="text-2xl font-headline font-semibold border-b pb-2">
             Skills
           </h2>
-          <div className="mt-4 space-y-2">
-            {skills?.map((skill: any) => (
-              <div key={skill.id}>
-                <h3 className="font-semibold">{skill.name}:</h3>
-                <p className="text-foreground/90">{skill.items}</p>
-              </div>
-            ))}
-          </div>
+          <p className="mt-4 text-foreground/90">
+            {skills?.map((skill: any) => skill.description).join(", ")}
+          </p>
         </section>
       </div>
     </div>
