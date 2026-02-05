@@ -1,0 +1,28 @@
+name: Contact Form Proxy
+
+on:
+  repository_dispatch:
+    types: [contact-form-submit]
+
+permissions:
+  contents: read
+
+jobs:
+  forward-to-workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger handle-contact workflow
+        run: |
+          curl -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/jordan-bring-gold/my-website/actions/workflows/handle-contact.yml/dispatches \
+            -d '{
+              "ref": "main",
+              "inputs": {
+                "name": "${{ github.event.client_payload.name }}",
+                "email": "${{ github.event.client_payload.email }}",
+                "subject": "${{ github.event.client_payload.subject }}",
+                "message": "${{ github.event.client_payload.message }}"
+              }
+            }'

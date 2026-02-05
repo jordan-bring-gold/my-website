@@ -1,0 +1,87 @@
+name: Handle Contact Form
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        required: true
+        type: string
+      email:
+        required: true
+        type: string
+      subject:
+        required: true
+        type: string
+      message:
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  add-to-contacts-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Find or create Contacts issue
+        id: find-issue
+        run: |
+          # Search for existing "Contacts" issue
+          ISSUE_NUMBER=$(curl -s \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer ${{ secrets.CONTACT_FORM_TOKEN }}" \
+            "https://api.github.com/repos/jordan-bring-gold/my-website-secrets/issues?state=open&labels=contact-form" \
+            | jq -r '.[] | select(.title == "Contacts") | .number' | head -1)
+          
+          if [ -z "$ISSUE_NUMBER" ] || [ "$ISSUE_NUMBER" == "null" ]; then
+            echo "No existing Contacts issue found, creating one..."
+            
+            # Create the issue
+            RESPONSE=$(curl -s -X POST \
+              -H "Accept: application/vnd.github.v3+json" \
+              -H "Authorization: Bearer ${{ secrets.CONTACT_FORM_TOKEN }}" \
+              https://api.github.com/repos/jordan-bring-gold/my-website-secrets/issues \
+              -d '{
+                "title": "Contacts",
+                "body": "This issue contains all contact form submissions from the website.\n\n---",
+                "labels": ["contact-form"]
+              }')
+            
+            ISSUE_NUMBER=$(echo "$RESPONSE" | jq -r '.number')
+            echo "Created new issue #$ISSUE_NUMBER"
+          else
+            echo "Found existing issue #$ISSUE_NUMBER"
+          fi
+          
+          echo "issue_number=$ISSUE_NUMBER" >> $GITHUB_OUTPUT
+      
+      - name: Add comment with submission
+        run: |
+          TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          
+          # Escape special characters for JSON
+          NAME=$(echo '${{ inputs.name }}' | jq -Rs .)
+          EMAIL=$(echo '${{ inputs.email }}' | jq -Rs .)
+          SUBJECT=$(echo '${{ inputs.subject }}' | jq -Rs .)
+          MESSAGE=$(echo '${{ inputs.message }}' | jq -Rs .)
+          
+          COMMENT_BODY="### 📧 New Contact Form Submission
+
+**From:** $NAME
+**Email:** $EMAIL
+**Subject:** $SUBJECT
+**Date:** $TIMESTAMP
+
+**Message:**
+$MESSAGE
+
+---"
+          
+          # Add comment to the issue
+          curl -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer ${{ secrets.CONTACT_FORM_TOKEN }}" \
+            https://api.github.com/repos/jordan-bring-gold/my-website-secrets/issues/${{ steps.find-issue.outputs.issue_number }}/comments \
+            -d "{\"body\": $(echo "$COMMENT_BODY" | jq -Rs .)}"
+          
+          echo "✅ Added submission to issue #${{ steps.find-issue.outputs.issue_number }}"

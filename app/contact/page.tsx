@@ -30,18 +30,34 @@ export default function ContactPage() {
         console.log('Form submitting:', { name, email, subject, message });
 
         try {
-            const response = await fetch('/api/send-email', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ name, email, subject, message }),
-            });
-            console.log("Response status:", response);
+            // Trigger GitHub Actions workflow via repository_dispatch
+            const response = await fetch(
+                'https://api.github.com/repos/jordan-bring-gold/my-website/dispatches',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        event_type: 'contact-form-submit',
+                        client_payload: {
+                            name,
+                            email,
+                            subject,
+                            message,
+                        },
+                    }),
+                }
+            );
 
-            if (response.ok) {
-                console.log("Email sent successfully")
-                toast({ title: "Message Sent!", description: "Thanks for reaching out. I'll get back to you soon." });
+            // Note: repository_dispatch returns 204 No Content on success
+            if (response.status === 204 || response.ok) {
+                console.log("Contact form submitted successfully");
+                toast({ 
+                    title: "Message Sent!", 
+                    description: "Thanks for reaching out. I'll get back to you soon." 
+                });
                 setName('');
                 setEmail('');
                 setSubject('');
@@ -51,7 +67,11 @@ export default function ContactPage() {
             }
         } catch (error) {
             console.error("Fetch error:", error);
-            toast({ title: "Uh oh!", description: "Something went wrong. Please try again.", variant: 'destructive' });
+            toast({ 
+                title: "Uh oh!", 
+                description: "Something went wrong. Please try again.", 
+                variant: 'destructive' 
+            });
         } finally {
             setIsLoading(false);
         }
