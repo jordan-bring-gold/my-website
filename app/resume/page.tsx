@@ -96,18 +96,18 @@ export default function ResumePage() {
       console.log("HTML generated, length:", fullHtml.length);
 
       // Create an iframe to render the complete HTML document
+      // The iframe creates an isolated document context - no parent CSS will leak in
       const iframe = document.createElement("iframe");
-      iframe.style.position = "fixed";
-      iframe.style.top = "0";
+      iframe.style.position = "absolute";
+      iframe.style.top = "-10000px"; // Position off-screen but keep visible for rendering
       iframe.style.left = "0";
       iframe.style.width = "850px";
       iframe.style.height = "1100px";
       iframe.style.border = "none";
-      iframe.style.zIndex = "-1";
-      iframe.style.opacity = "0";
       document.body.appendChild(iframe);
 
       // Write the complete HTML document to the iframe
+      // This includes all styles from the resumeTemplate - completely isolated from parent page
       const iframeDoc =
         iframe.contentDocument || iframe.contentWindow?.document;
       if (!iframeDoc) {
@@ -120,6 +120,43 @@ export default function ResumePage() {
 
       console.log("HTML written to iframe");
 
+      // Extract styles from head and move them into body for html2canvas
+      // html2canvas only captures body content, not head styles
+      const headStyles = Array.from(iframeDoc.head.querySelectorAll("style"))
+        .map((style) => style.outerHTML)
+        .join("\n");
+
+      // Create a wrapper div with all styles and CSS resets
+      const wrapper = iframeDoc.createElement("div");
+      wrapper.style.cssText = `
+        all: initial;
+        display: block;
+        background: white;
+        color: #333;
+        font-family: inherit;
+        line-height: inherit;
+      `;
+      wrapper.innerHTML = `
+        ${headStyles}
+        <style>
+          /* CSS Reset to prevent parent page styles from leaking */
+          * { all: revert; }
+        </style>
+        ${iframeDoc.body.innerHTML}
+      `;
+
+      // Replace body content with wrapped content
+      iframeDoc.body.innerHTML = "";
+      iframeDoc.body.style.cssText = `
+        margin: 0;
+        padding: 0;
+        background: white;
+        all: initial;
+      `;
+      iframeDoc.body.appendChild(wrapper);
+
+      console.log("Styles moved to body and CSS resets applied");
+
       // Wait for iframe to fully render
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
@@ -128,7 +165,7 @@ export default function ResumePage() {
       console.log("Iframe body height:", iframeBody.scrollHeight);
       console.log("Iframe body width:", iframeBody.scrollWidth);
 
-      // Configure PDF options
+      // Configure PDF options - use the iframe's window as context for html2canvas
       const opt = {
         margin: [0.5, 0.5, 0.5, 0.5],
         filename:
@@ -142,6 +179,8 @@ export default function ResumePage() {
           letterRendering: true,
           windowWidth: iframeBody.scrollWidth,
           windowHeight: iframeBody.scrollHeight,
+          // Use the iframe's window context so styles are included
+          windowContext: iframe.contentWindow,
         },
         jsPDF: {
           unit: "in",
