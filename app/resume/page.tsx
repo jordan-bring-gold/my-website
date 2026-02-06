@@ -37,6 +37,7 @@ export default function ResumePage() {
   const employers = companyData?.employers || [];
   const colleges = companyData?.colleges || [];
   const skills = companyData?.skills || [];
+  const certifications = companyData?.certifications || [];
 
   const handleDownloadPDF = async () => {
     try {
@@ -378,6 +379,41 @@ export default function ResumePage() {
           </section>
 
           <Separator className="my-8" />
+
+          {certifications && certifications.length > 0 && (
+            <>
+              <section>
+                <h2 className="text-2xl font-headline font-semibold border-b pb-2">
+                  Certifications
+                </h2>
+                <div className="mt-4 space-y-3">
+                  {certifications.map((cert: any) => (
+                    <div key={cert.id}>
+                      <h3 className="text-lg font-semibold">{cert.name}</h3>
+                      {cert.vendor && (
+                        <p className="text-md text-foreground/90">
+                          {cert.vendor}
+                        </p>
+                      )}
+                      <p className="text-sm text-muted-foreground">
+                        {cert.dateEarned && (
+                          <span>Earned: {formatDate(cert.dateEarned)}</span>
+                        )}
+                        {cert.dateEarned && cert.dateExpires && (
+                          <span> | </span>
+                        )}
+                        {cert.dateExpires && (
+                          <span>Expires: {formatDate(cert.dateExpires)}</span>
+                        )}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              <Separator className="my-8" />
+            </>
+          )}
 
           <section>
             <h2 className="text-2xl font-headline font-semibold border-b pb-2">
