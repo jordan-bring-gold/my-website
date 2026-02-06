@@ -84,6 +84,7 @@ export interface Certification {
   description: string;
   linkToSite: string;
   dateEarned: Date | string;
+  dateExpires?: Date | string;
   jobApplicationId: string | null;
 }
 
