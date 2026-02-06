@@ -36,16 +36,132 @@ export default function ResumePage() {
   const colleges = companyData?.colleges || [];
   const skills = companyData?.skills || [];
 
-  if (!userProfile) {
-    return (
-      <div className="flex h-[calc(100vh-theme(spacing.16))] items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-2xl font-semibold">Resume Not Available</h2>
-          <p className="text-muted-foreground mt-2">No resume data provided.</p>
-        </div>
-      </div>
-    );
-  }
+  const handleDownloadPDF = async () => {
+    try {
+      const template = companyData.resumeTemplate;
+
+      if (!template) {
+        alert("Resume template not found");
+        return;
+      }
+
+      console.log("Template loaded, length:", template.length);
+
+      // Dynamically import html2pdf (browser-only)
+      const html2pdf = (await import("html2pdf.js")).default;
+
+      // Load Handlebars from CDN dynamically
+      const loadHandlebars = (): Promise<any> => {
+        return new Promise((resolve, reject) => {
+          if ((window as any).Handlebars) {
+            resolve((window as any).Handlebars);
+            return;
+          }
+
+          const script = document.createElement("script");
+          script.src =
+            "https://cdn.jsdelivr.net/npm/handlebars@4.7.8/dist/handlebars.min.js";
+          script.onload = () => resolve((window as any).Handlebars);
+          script.onerror = reject;
+          document.head.appendChild(script);
+        });
+      };
+
+      // Load Handlebars
+      const Handlebars = await loadHandlebars();
+      console.log("Handlebars loaded");
+
+      // Register helper functions
+      Handlebars.registerHelper("formatDate", (date: any) => {
+        if (!date) return "";
+        const jsDate = date instanceof Date ? date : new Date(date);
+        return jsDate.toLocaleDateString("en-US", {
+          month: "short",
+          year: "numeric",
+        });
+      });
+
+      Handlebars.registerHelper("eq", (a: any, b: any) => {
+        return a === b;
+      });
+
+      console.log("Helpers registered");
+
+      // Compile the template
+      const compiledTemplate = Handlebars.compile(template);
+      console.log("Template compiled");
+
+      // Generate HTML with data
+      const fullHtml = compiledTemplate(companyData);
+      console.log("HTML generated, length:", fullHtml.length);
+
+      // Create an iframe to render the complete HTML document
+      const iframe = document.createElement("iframe");
+      iframe.style.position = "fixed";
+      iframe.style.top = "0";
+      iframe.style.left = "0";
+      iframe.style.width = "850px";
+      iframe.style.height = "1100px";
+      iframe.style.border = "none";
+      iframe.style.zIndex = "-1";
+      iframe.style.opacity = "0";
+      document.body.appendChild(iframe);
+
+      // Write the complete HTML document to the iframe
+      const iframeDoc =
+        iframe.contentDocument || iframe.contentWindow?.document;
+      if (!iframeDoc) {
+        throw new Error("Could not access iframe document");
+      }
+
+      iframeDoc.open();
+      iframeDoc.write(fullHtml);
+      iframeDoc.close();
+
+      console.log("HTML written to iframe");
+
+      // Wait for iframe to fully render
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Get the body element from the iframe
+      const iframeBody = iframeDoc.body;
+      console.log("Iframe body height:", iframeBody.scrollHeight);
+      console.log("Iframe body width:", iframeBody.scrollWidth);
+
+      // Configure PDF options
+      const opt = {
+        margin: [0.5, 0.5, 0.5, 0.5],
+        filename:
+          `${userProfile?.name?.replace(/\s+/g, "_")}_Resume.pdf` ||
+          "Resume.pdf",
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          logging: true,
+          letterRendering: true,
+          windowWidth: iframeBody.scrollWidth,
+          windowHeight: iframeBody.scrollHeight,
+        },
+        jsPDF: {
+          unit: "in",
+          format: "letter",
+          orientation: "portrait",
+        },
+        pagebreak: { mode: ["avoid-all", "css", "legacy"] },
+      };
+
+      console.log("Starting PDF generation...");
+      await html2pdf().from(iframeBody).set(opt).save();
+      console.log("PDF generated successfully");
+
+      // Clean up
+      document.body.removeChild(iframe);
+    } catch (error) {
+      console.error("Error generating PDF:", error);
+      alert("Failed to generate PDF. Please try again.");
+    }
+  };
 
   const sortedPositions = positions
     ? [...positions].sort((a: any, b: any) => {
@@ -61,6 +177,17 @@ export default function ResumePage() {
       })
     : [];
 
+  if (!userProfile) {
+    return (
+      <div className="flex h-[calc(100vh-theme(spacing.16))] items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-semibold">Resume Not Available</h2>
+          <p className="text-muted-foreground mt-2">No resume data provided.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="container mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
@@ -72,7 +199,7 @@ export default function ResumePage() {
             Full-Stack Developer
           </p>
         </div>
-        <Button className="mt-4 sm:mt-0">
+        <Button className="mt-4 sm:mt-0" onClick={handleDownloadPDF}>
           <Download className="mr-2 h-4 w-4" />
           Download PDF
         </Button>

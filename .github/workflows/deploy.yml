@@ -23,38 +23,45 @@ jobs:
     steps:
       - name: Checkout public repo
         uses: actions/checkout@v4
-      
+
       - name: Checkout private config repo
         uses: actions/checkout@v4
         with:
           repository: jordan-bring-gold/my-website-secrets
           token: ${{ secrets.PRIVATE_REPO_TOKEN }}
           path: private-config
-      
+
       - name: Copy JSON files to expected location
         run: |
           mkdir -p data/companies
           cp private-config/companies/*.json data/companies/
           echo "✅ JSON files copied successfully:"
           ls -la data/companies/
-      
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: 'npm'
-      
+          cache: "npm"
+
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
-      
+
+      - name: Check for vulnerabilities
+        run: npm audit || true
+
+      - name: Fix vulnerabilities
+        run: npm audit fix --legacy-peer-deps || true
+        continue-on-error: true
+
       - name: Build with Next.js
         run: npm run build
         env:
           NODE_ENV: production
-      
+
       - name: Add .nojekyll file
         run: touch ./out/.nojekyll
-      
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
