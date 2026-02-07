@@ -9,6 +9,7 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "./ui/carousel";
+import { CustomScroll } from "./ui/custom-scroll";
 import type { Project, Image as ProjectImage } from "../lib/types";
 
 interface ProjectPopupProps {
@@ -27,8 +28,8 @@ const formatDate = (date: any) => {
 
 export default function ProjectPopup({ project, images }: ProjectPopupProps) {
   return (
-    <DialogContent className="max-w-2xl max-h-[90vh] flex flex-col">
-      <div className="flex flex-col space-y-6 overflow-y-auto pr-2">
+    <DialogContent className="max-w-2xl max-h-[90vh] flex flex-col pr-5">
+      <CustomScroll className="flex flex-col space-y-6 pr-1 pt-1">
         <Carousel className="w-full flex-shrink-0">
           <CarouselContent>
             {images.map((image, index) => (
@@ -62,7 +63,7 @@ export default function ProjectPopup({ project, images }: ProjectPopupProps) {
           </DialogDescription>
           <p className="mt-4 text-muted-foreground">{project.description}</p>
         </div>
-      </div>
+      </CustomScroll>
     </DialogContent>
   );
 }
