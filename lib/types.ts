@@ -9,14 +9,12 @@ export interface College {
   state?: string;
   gpa: number;
   isOnline?: boolean;
-  jobApplicationId: string | null;
 }
 
 export interface Class {
   id: string;
   name: string;
   collegeId: string;
-  jobApplicationId: string | null;
 }
 
 export interface Employer {
@@ -24,7 +22,6 @@ export interface Employer {
   name: string;
   city: string;
   state: string;
-  jobApplicationId: string | null;
 }
 
 export interface Position {
@@ -33,7 +30,6 @@ export interface Position {
   employerId: string;
   dateStarted: Date | string;
   dateFinished: Date | string | null;
-  jobApplicationId: string | null;
 }
 
 export interface WorkExperience {
@@ -44,14 +40,12 @@ export interface WorkExperience {
   order: number;
   position?: Position;
   employer?: Employer;
-  jobApplicationId: string | null;
 }
 
 export interface Accomplishment {
   id: string;
   description: string;
   date: Date | string;
-  jobApplicationId: string | null;
 }
 
 export interface Project {
@@ -63,7 +57,6 @@ export interface Project {
   imageThumbnailId: string;
   defaultOrder: number;
   skillIds: string[];
-  jobApplicationId: string | null;
 }
 
 export interface Image {
@@ -74,7 +67,6 @@ export interface Image {
   imageUrl?: string;
   projectId: string;
   order: number;
-  jobApplicationId: string | null;
 }
 
 export interface Certification {
@@ -85,7 +77,6 @@ export interface Certification {
   linkToSite: string;
   dateEarned: Date | string;
   dateExpires?: Date | string;
-  jobApplicationId: string | null;
 }
 
 export type JobApplicationStatus =
@@ -173,14 +164,12 @@ export interface Skill {
   id: string;
   description: string;
   order: number;
-  jobApplicationId: string | null;
 }
 
 export interface Interest {
   id: string;
   name: string;
   order: number;
-  jobApplicationId: string | null;
 }
 
 export interface UserProfile {
