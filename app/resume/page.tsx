@@ -20,6 +20,25 @@ import defaultCompanyData from "@/data/companies/default.json";
 
 const formatDate = (date: any) => {
   if (!date) return "";
+
+  // Parse date string to avoid timezone issues
+  // If date is a string like "2024-01-01", parse it as local time not UTC
+  if (typeof date === "string") {
+    const parts = date.split("-");
+    if (parts.length === 3) {
+      // Create date in local timezone: year, month (0-indexed), day
+      const jsDate = new Date(
+        parseInt(parts[0]),
+        parseInt(parts[1]) - 1,
+        parseInt(parts[2]),
+      );
+      return jsDate.toLocaleDateString("en-US", {
+        month: "short",
+        year: "numeric",
+      });
+    }
+  }
+
   const jsDate = date instanceof Date ? date : new Date(date);
   return jsDate.toLocaleDateString("en-US", {
     month: "short",
@@ -368,10 +387,17 @@ export default function ResumePage() {
                   <div className="flex justify-between items-baseline">
                     <h3 className="text-lg font-semibold">{college.name}</h3>
                     <p className="text-sm text-muted-foreground">
-                      {college.yearGraduated}
+                      {formatDate(college.dateStarted)} -{" "}
+                      {formatDate(college.dateGraduated)}
                     </p>
                   </div>
                   <p className="text-md text-foreground/90">{college.degree}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {college.city && college.state
+                      ? `${college.city}, ${college.state}`
+                      : college.city || college.state || ""}
+                    {college.isOnline && ` (Online)`}
+                  </p>
                   {/*<p className="text-sm text-muted-foreground">GPA: {college.gpa}</p>*/}
                 </div>
               ))}
@@ -389,23 +415,19 @@ export default function ResumePage() {
                 <div className="mt-4 space-y-3">
                   {certifications.map((cert: any) => (
                     <div key={cert.id}>
-                      <h3 className="text-lg font-semibold">{cert.name}</h3>
+                      <div className="flex justify-between items-baseline">
+                        <h3 className="text-lg font-semibold">{cert.name}</h3>
+                        <p className="text-sm text-muted-foreground">
+                          {cert.dateEarned && formatDate(cert.dateEarned)}
+                          {cert.dateEarned && cert.dateExpires && " - "}
+                          {cert.dateExpires && formatDate(cert.dateExpires)}
+                        </p>
+                      </div>
                       {cert.vendor && (
                         <p className="text-md text-foreground/90">
                           {cert.vendor}
                         </p>
                       )}
-                      <p className="text-sm text-muted-foreground">
-                        {cert.dateEarned && (
-                          <span>Earned: {formatDate(cert.dateEarned)}</span>
-                        )}
-                        {cert.dateEarned && cert.dateExpires && (
-                          <span> | </span>
-                        )}
-                        {cert.dateExpires && (
-                          <span>Expires: {formatDate(cert.dateExpires)}</span>
-                        )}
-                      </p>
                     </div>
                   ))}
                 </div>
