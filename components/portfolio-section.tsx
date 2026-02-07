@@ -12,20 +12,8 @@ import { Badge } from "./ui/badge";
 
 import type { Project, Image as ProjectImage, Skill } from "../lib/types";
 import * as React from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogTitle,
-  DialogTrigger,
-} from "./ui/dialog";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
-} from "./ui/carousel";
+import { Dialog, DialogTrigger } from "./ui/dialog";
+import ProjectPopup from "./project-popup";
 
 interface PortfolioSectionProps {
   projects?: Project[];
@@ -146,47 +134,10 @@ export default function PortfolioSection({
             })}
           </div>
           {selectedProject && (
-            <DialogContent className="max-w-2xl">
-              <div className="flex flex-col space-y-6 ">
-                <Carousel className="w-full">
-                  <CarouselContent>
-                    {(imagesByProjectId.get(selectedProject.id) || []).map(
-                      (image, index) => (
-                        <CarouselItem key={index}>
-                          <div className="p-1">
-                            <Image
-                              src={
-                                image.imageUrl ||
-                                image.base64Content ||
-                                "/placeholder.png"
-                              }
-                              alt={`${selectedProject.name} image ${index + 1}`}
-                              width={800}
-                              height={600}
-                              className="w-full aspect-video object-cover rounded-lg max-h-[50vh]"
-                            />
-                          </div>
-                        </CarouselItem>
-                      ),
-                    )}
-                  </CarouselContent>
-                  <CarouselPrevious className="left-4" />
-                  <CarouselNext className="right-4" />
-                </Carousel>
-
-                <div className="flex flex-col">
-                  <DialogTitle className="text-2xl font-bold">
-                    {selectedProject.name}
-                  </DialogTitle>
-                  <DialogDescription className="text-sm text-muted-foreground mt-1">
-                    {formatDate(selectedProject.date)}
-                  </DialogDescription>
-                  <p className="mt-4 text-muted-foreground">
-                    {selectedProject.description}
-                  </p>
-                </div>
-              </div>
-            </DialogContent>
+            <ProjectPopup
+              project={selectedProject}
+              images={imagesByProjectId.get(selectedProject.id) || []}
+            />
           )}
         </Dialog>
       )}
