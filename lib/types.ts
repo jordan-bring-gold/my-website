@@ -107,17 +107,6 @@ export interface JobApplication {
   customUrl: string;
   welcomeNote: string;
   status: JobApplicationStatus;
-  resumeGenerated: boolean;
-  resumeWorkExperienceIds: string[];
-  resumeCollegeIds: string[];
-  resumeTemplateId: string;
-  portfolioGenerated: boolean;
-  portfolioProjectIds: string[];
-  urlsActive: {
-    welcome: boolean;
-    resume: boolean;
-    portfolio: boolean;
-  };
 }
 
 export interface StatusEvent {
