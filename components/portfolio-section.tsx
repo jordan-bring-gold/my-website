@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
+import { GitHubImage } from "./github-image";
 import { Badge } from "./ui/badge";
 
 import type { Project, Image as ProjectImage, Skill } from "../lib/types";
@@ -91,16 +92,11 @@ export default function PortfolioSection({
                   <Card className="flex flex-col overflow-hidden transition-shadow duration-300 hover:shadow-xl cursor-pointer rounded-3xl">
                     <CardHeader className="p-0">
                       {thumbnail && (
-                        <Image
-                          src={
-                            thumbnail.imageUrl ||
-                            thumbnail.base64Content ||
-                            "/placeholder.png"
-                          }
+                        <GitHubImage
+                          src={thumbnail.imageUrl || thumbnail.base64Content}
                           alt={project.name}
-                          width={600}
-                          height={400}
                           className="aspect-video w-full object-cover"
+                          fallbackSrc="/placeholder.png"
                         />
                       )}
                     </CardHeader>

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { DialogContent, DialogDescription, DialogTitle } from "./ui/dialog";
+import { GitHubImage } from "./github-image";
 import {
   Carousel,
   CarouselContent,
@@ -35,16 +36,11 @@ export default function ProjectPopup({ project, images }: ProjectPopupProps) {
             {images.map((image, index) => (
               <CarouselItem key={index}>
                 <div className="p-1">
-                  <Image
-                    src={
-                      image.imageUrl ||
-                      image.base64Content ||
-                      "/placeholder.png"
-                    }
+                  <GitHubImage
+                    src={image.imageUrl || image.base64Content}
                     alt={`${project.name} image ${index + 1}`}
-                    width={800}
-                    height={600}
                     className="w-full aspect-video object-cover rounded-lg max-h-[50vh]"
+                    fallbackSrc="/placeholder.png"
                   />
                 </div>
               </CarouselItem>
