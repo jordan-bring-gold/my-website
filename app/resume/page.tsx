@@ -352,9 +352,9 @@ export default function ResumePage() {
                 );
                 return (
                   <div key={pos.id}>
-                    <div className="flex justify-between items-baseline">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline">
                       <h3 className="text-lg font-semibold">{pos.name}</h3>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-muted-foreground sm:order-2">
                         {formatDate(pos.dateStarted)} -{" "}
                         {pos.dateFinished
                           ? formatDate(pos.dateFinished)
@@ -364,7 +364,7 @@ export default function ResumePage() {
                     <p className="text-md text-foreground/90">
                       {employer?.name} | {employer?.city}, {employer?.state}
                     </p>
-                    <ul className="mt-2 list-disc list-inside space-y-1 text-foreground/90">
+                    <ul className="mt-2 ml-5 list-disc list-outside space-y-1 text-foreground/90">
                       {experiences?.map((exp: any) => (
                         <li key={exp.id}>{exp.description}</li>
                       ))}
@@ -384,9 +384,9 @@ export default function ResumePage() {
             <div className="mt-4 space-y-4">
               {colleges?.map((college: any) => (
                 <div key={college.id}>
-                  <div className="flex justify-between items-baseline">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline">
                     <h3 className="text-lg font-semibold">{college.name}</h3>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-muted-foreground order-3 sm:order-2">
                       {formatDate(college.dateStarted)} -{" "}
                       {formatDate(college.dateGraduated)}
                     </p>
@@ -415,9 +415,9 @@ export default function ResumePage() {
                 <div className="mt-4 space-y-3">
                   {certifications.map((cert: any) => (
                     <div key={cert.id}>
-                      <div className="flex justify-between items-baseline">
+                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline">
                         <h3 className="text-lg font-semibold">{cert.name}</h3>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground order-2">
                           {cert.dateEarned && formatDate(cert.dateEarned)}
                           {cert.dateEarned && cert.dateExpires && " - "}
                           {cert.dateExpires && formatDate(cert.dateExpires)}

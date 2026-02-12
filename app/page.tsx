@@ -35,10 +35,12 @@ export default function Home() {
   skills.forEach((item) => allSkills.add(item.description));
   const shuffledSkills = Array.from(allSkills);
 
+  //use profileimageurl if it exists, otherwise use a default image
   const heroImage = {
     id: "hero-image",
     description: "Professional headshot for hero section",
     imageUrl:
+      // userProfile?.profileImageUrl ||
       "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjczMzk1MzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
     imageHint: "professional portrait",
   };
@@ -220,7 +222,7 @@ export default function Home() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-0 bg-white text-black hover:bg-primary hover:text-white"
+                className="border-1 bg-white text-black hover:bg-primary hover:text-white"
               >
                 <CompanyAwareLink href="/contact">
                   Get in Touch <ArrowRight className="ml-2 h-5 w-5" />
