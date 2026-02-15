@@ -270,7 +270,7 @@ export default function ResumePage() {
 
       // Configure PDF options - use the iframe's window as context for html2canvas
       const opt = {
-        margin: [0.0, 0.0, 0.0, 0.0] as [number, number, number, number],
+        margin: [-0.2, 0.0, 0.0, 0.0] as [number, number, number, number],
         filename:
           `${userProfile?.name?.replace(/\s+/g, "_")}_Resume.pdf` ||
           "Resume.pdf",
