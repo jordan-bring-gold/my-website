@@ -145,45 +145,123 @@ export default function ResumePage() {
 
       console.log("HTML written to iframe");
 
-      // Extract styles from head and move them into body for html2canvas
+      // --- Font & style debugging: inspect what's in the iframe head ---
+      const iframeHeadLinks = Array.from(
+        iframeDoc.head.querySelectorAll('link[rel="stylesheet"]'),
+      );
+      console.log(
+        "Stylesheet <link> tags in iframe head:",
+        iframeHeadLinks.map((l) => l.getAttribute("href")),
+      );
+      const iframeHeadStyles = Array.from(
+        iframeDoc.head.querySelectorAll("style"),
+      );
+      console.log(
+        "Inline <style> tags in iframe head:",
+        iframeHeadStyles.length,
+      );
+
+      // Extract <style> tags from head and inline them into body for html2canvas
       // html2canvas only captures body content, not head styles
-      const headStyles = Array.from(iframeDoc.head.querySelectorAll("style"))
+      // NOTE: <link> stylesheet tags stay in <head> — they don't work inside <div> in body
+      const headStyles = iframeHeadStyles
         .map((style) => style.outerHTML)
         .join("\n");
 
-      // Create a wrapper div with all styles and CSS resets
-      const wrapper = iframeDoc.createElement("div");
-      wrapper.style.cssText = `
-        all: initial;
-        display: block;
-        background: white;
-        color: #333;
-        font-family: inherit;
-        line-height: inherit;
-      `;
-      wrapper.innerHTML = `
-        ${headStyles}
-        <style>
-          /* CSS Reset to prevent parent page styles from leaking */
-          * { all: revert; }
-        </style>
-        ${iframeDoc.body.innerHTML}
-      `;
+      // Prepend extracted <style> content directly into the body (not wrapped in a div)
+      // so html2canvas can see the CSS rules
+      const styleContainer = iframeDoc.createElement("div");
+      styleContainer.style.display = "none";
+      styleContainer.innerHTML = headStyles;
+      iframeDoc.body.insertBefore(styleContainer, iframeDoc.body.firstChild);
 
-      // Replace body content with wrapped content
-      iframeDoc.body.innerHTML = "";
-      iframeDoc.body.style.cssText = `
-        margin: 0;
-        padding: 0;
-        background: white;
-        all: initial;
-      `;
-      iframeDoc.body.appendChild(wrapper);
+      console.log("Styles injected into body");
 
-      console.log("Styles moved to body and CSS resets applied");
+      // --- Wait for the Google Fonts stylesheet to actually load ---
+      // The <link> in iframe head triggers a network fetch; we need to wait for it
+      const fontLoadStart = Date.now();
 
-      // Wait for iframe to fully render
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // First wait for any stylesheet link to load
+      if (iframeHeadLinks.length > 0) {
+        console.log("Waiting for stylesheet links to load...");
+        await Promise.all(
+          iframeHeadLinks.map(
+            (link) =>
+              new Promise<void>((resolve) => {
+                // If already loaded, resolve immediately
+                const el = link as HTMLLinkElement;
+                if (el.sheet) {
+                  console.log(`Stylesheet already loaded: ${el.href}`);
+                  resolve();
+                  return;
+                }
+                el.addEventListener("load", () => {
+                  console.log(`Stylesheet loaded: ${el.href}`);
+                  resolve();
+                });
+                el.addEventListener("error", () => {
+                  console.warn(`Stylesheet failed to load: ${el.href}`);
+                  resolve();
+                });
+                // Timeout fallback
+                setTimeout(() => {
+                  console.warn(`Stylesheet load timeout: ${el.href}`);
+                  resolve();
+                }, 5000);
+              }),
+          ),
+        );
+      }
+
+      // Now wait for font faces to be ready
+      if (iframeDoc.fonts) {
+        console.log("Waiting for document.fonts.ready...");
+        await iframeDoc.fonts.ready;
+
+        // Log all loaded fonts
+        const loadedFonts: string[] = [];
+        iframeDoc.fonts.forEach((font: FontFace) => {
+          loadedFonts.push(
+            `${font.family} (weight: ${font.weight}, status: ${font.status})`,
+          );
+        });
+        console.log("Fonts in iframe after ready:", loadedFonts);
+
+        // Explicitly try to load Roboto as a test
+        try {
+          await iframeDoc.fonts.load('400 12px "Roboto"');
+          console.log("Roboto 400 font load check: success");
+        } catch (e) {
+          console.warn("Roboto 400 font load check: failed", e);
+        }
+
+        // Log final font state
+        const finalFonts: string[] = [];
+        iframeDoc.fonts.forEach((font: FontFace) => {
+          finalFonts.push(
+            `${font.family} (weight: ${font.weight}, status: ${font.status})`,
+          );
+        });
+        console.log("Final fonts in iframe:", finalFonts);
+      }
+
+      const fontLoadTime = Date.now() - fontLoadStart;
+      console.log(`Font loading took ${fontLoadTime}ms`);
+
+      // Extra buffer for rendering
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      // --- Debug: check computed font on a visible element ---
+      const firstH1 = iframeDoc.querySelector("h1");
+      if (firstH1) {
+        const computed = iframe.contentWindow?.getComputedStyle(firstH1);
+        console.log("Computed font-family on <h1>:", computed?.fontFamily);
+        console.log("Computed font-size on <h1>:", computed?.fontSize);
+      }
+      const firstBody = iframeDoc.body;
+      const bodyComputed = iframe.contentWindow?.getComputedStyle(firstBody);
+      console.log("Computed font-family on <body>:", bodyComputed?.fontFamily);
+      console.log("Computed display on <body>:", bodyComputed?.display);
 
       // Get the body element from the iframe
       const iframeBody = iframeDoc.body;
@@ -192,7 +270,7 @@ export default function ResumePage() {
 
       // Configure PDF options - use the iframe's window as context for html2canvas
       const opt = {
-        margin: [0.5, 0.5, 0.5, 0.5] as [number, number, number, number],
+        margin: [0.0, 0.0, 0.0, 0.0] as [number, number, number, number],
         filename:
           `${userProfile?.name?.replace(/\s+/g, "_")}_Resume.pdf` ||
           "Resume.pdf",
