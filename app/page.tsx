@@ -57,7 +57,7 @@ export default function Home() {
             // style={{ objectPosition: "center -450px" }}
             // style={{ objectPosition: "top 0px" }}
             priority
-            data-ai-hint={heroImage.imageHint}
+            // data-ai-hint={heroImage.imageHint}
           />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/20" />
