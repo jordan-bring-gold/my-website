@@ -35,13 +35,12 @@ export default function Home() {
   skills.forEach((item) => allSkills.add(item.description));
   const shuffledSkills = Array.from(allSkills);
 
-  //use profileimageurl if it exists, otherwise use a default image
   const heroImage = {
     id: "hero-image",
     description: "Professional headshot for hero section",
     imageUrl:
-      // userProfile?.profileImageUrl ||
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjczMzk1MzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      // use the image in the public folder for faster loading and to avoid hitting GitHub API limits during development
+      "/images/image.jpg",
     imageHint: "professional portrait",
   };
 
@@ -55,6 +54,8 @@ export default function Home() {
             alt={heroImage.description}
             fill
             className="object-cover"
+            // style={{ objectPosition: "center -450px" }}
+            // style={{ objectPosition: "top 0px" }}
             priority
             data-ai-hint={heroImage.imageHint}
           />
