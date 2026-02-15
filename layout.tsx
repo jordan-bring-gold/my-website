@@ -9,6 +9,11 @@ export const metadata: Metadata = {
   title: "Jordan Bringgold",
   description: "A personal brand website showcasing my experience and work.",
 };
+// Prefer declaring icons in the Next metadata API so the app router injects them properly
+// See: https://nextjs.org/docs/app/api-reference/functions/metadata
+export const icons = {
+  icon: "/favicon.svg",
+};
 
 export default function RootLayout({
   children,
