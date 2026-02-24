@@ -213,10 +213,11 @@ export default function Home() {
         <div className="container relative z-10 mx-auto px-4 md:px-6">
           <div className="flex flex-col items-center text-center text-white">
             <h2 className="text-3xl font-headline font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              Interested?
+              Work with Me
             </h2>
             <p className="mx-auto mt-4 max-w-[700px] text-white/90 md:text-xl/relaxed">
-              Feel free to reach out for collaborations or just a friendly chat.
+              Interested in having me on your team? Let's connect to schedule a
+              chat.
             </p>
             <div className="mt-8">
               <Button

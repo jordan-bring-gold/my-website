@@ -38,3 +38,6 @@ next-env.d.ts
 
 
 /data/companies
+# Ignore all PDF files in the public directory
+public/*.pdf
+# public/Jordan_Bringgold_Resume.pdf
