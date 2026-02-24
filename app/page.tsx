@@ -47,7 +47,10 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative h-screen w-full text-primary-foreground">
+      <section
+        className="relative w-full text-primary-foreground"
+        style={{ height: "calc(100vh - 56px)" }}
+      >
         <div className="flex h-full flex-col md:flex-row">
           {/* Left column: desktop only (text + buttons) */}
           <div className="hidden md:flex md:flex-1 items-center">
