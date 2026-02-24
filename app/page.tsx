@@ -47,46 +47,94 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative h-[60vh] min-h-[500px] w-full text-primary-foreground">
-        {heroImage && (
-          <Image
-            src={heroImage.imageUrl}
-            alt={heroImage.description}
-            fill
-            className="object-cover"
-            // style={{ objectPosition: "center -450px" }}
-            // style={{ objectPosition: "top 0px" }}
-            priority
-            // data-ai-hint={heroImage.imageHint}
-          />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/20" />
-        <div className="relative z-10 flex h-full flex-col items-center justify-center text-center">
-          <div className="container px-4 md:px-6">
-            <h1 className="text-4xl font-headline font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-              {userProfile?.name || "Your Name"}
-            </h1>
-            <p className="mx-auto mt-4 max-w-[700px] text-lg md:text-xl">
-              {userProfile?.summary ||
-                "Innovative Full-Stack Developer | Building Scalable Web Solutions"}
-            </p>
-            <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
-              <Button
-                asChild
-                size="lg"
-                className="bg-primary text-primary-foreground hover:bg-primary/90"
-              >
-                <CompanyAwareLink href="/resume">
-                  View Resume <ArrowRight className="ml-2 h-5 w-5" />
-                </CompanyAwareLink>
-              </Button>
-              <Button asChild size="lg" variant="secondary">
-                <CompanyAwareLink href="/portfolio">
-                  See Projects
-                </CompanyAwareLink>
-              </Button>
+      <section className="relative h-screen w-full text-primary-foreground">
+        <div className="flex h-full flex-col md:flex-row">
+          {/* Left column: desktop only (text + buttons) */}
+          <div className="hidden md:flex md:flex-1 items-center">
+            <div className="container px-4 md:px-6 text-left">
+              <h1 className="text-foreground dark:text-primary-foreground text-4xl font-headline font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+                {userProfile?.name || "Your Name"}
+              </h1>
+              <p className="mt-4 max-w-[700px] text-lg md:text-xl text-muted-foreground">
+                {userProfile?.summary ||
+                  "Innovative Full-Stack Developer | Building Scalable Web Solutions"}
+              </p>
+              <div className="mt-8 flex flex-col justify-start gap-4 sm:flex-row">
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-primary text-primary-foreground hover:bg-primary/90"
+                >
+                  <CompanyAwareLink href="/resume">
+                    View Resume <ArrowRight className="ml-2 h-5 w-5" />
+                  </CompanyAwareLink>
+                </Button>
+                <Button asChild size="lg" variant="secondary">
+                  <CompanyAwareLink href="/portfolio">
+                    See Projects
+                  </CompanyAwareLink>
+                </Button>
+              </div>
             </div>
           </div>
+
+          {/* Right column: image (covers full hero height) */}
+          <div className="relative w-full md:w-[600px] h-64 md:h-full overflow-hidden">
+            {heroImage && (
+              <Image
+                src={heroImage.imageUrl}
+                alt={heroImage.description}
+                fill
+                className="object-cover"
+                style={{ objectPosition: "center -100px" }}
+                priority
+              />
+            )}
+
+            {/* Gradient for contrast on the image */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/20" />
+
+            {/* Mobile overlay: name near top, summary lower with translucent box */}
+            <div className="md:hidden relative z-10">
+              <div className="absolute top-6 left-4 right-4">
+                <div className="bg-black/50 backdrop-blur-sm rounded px-3 py-2">
+                  <h1 className="text-foreground dark:text-primary-foreground text-2xl font-headline font-extrabold tracking-tight">
+                    {userProfile?.name || "Your Name"}
+                  </h1>
+                </div>
+              </div>
+
+              <div className="absolute left-4 right-4 bottom-28">
+                <div className="bg-black/50 backdrop-blur-sm rounded p-4">
+                  <p className="text-sm md:text-base text-white/90">
+                    {userProfile?.summary ||
+                      "Innovative Full-Stack Developer | Building Scalable Web Solutions"}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile buttons: placed below the image */}
+        <div className="md:hidden container mx-auto px-4 mt-4 flex flex-col items-center gap-4">
+          <Button
+            asChild
+            size="lg"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 w-full max-w-md"
+          >
+            <CompanyAwareLink href="/resume">
+              View Resume <ArrowRight className="ml-2 h-5 w-5" />
+            </CompanyAwareLink>
+          </Button>
+          <Button
+            asChild
+            size="lg"
+            variant="secondary"
+            className="w-full max-w-md"
+          >
+            <CompanyAwareLink href="/portfolio">See Projects</CompanyAwareLink>
+          </Button>
         </div>
       </section>
 
