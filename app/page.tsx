@@ -216,7 +216,7 @@ export default function Home() {
               Work with Me
             </h2>
             <p className="mx-auto mt-4 max-w-[700px] text-white/90 md:text-xl/relaxed">
-              Interested in having me on your team? Let's connect to schedule a
+              Interested in having me on your team? Let&apos;s connect to schedule a
               chat.
             </p>
             <div className="mt-8">
