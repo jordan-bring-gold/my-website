@@ -82,7 +82,7 @@ export default function Home() {
           </div>
 
           {/* Right column: image (covers full hero height) */}
-          <div className="relative w-full md:w-[600px] h-64 md:h-full overflow-hidden">
+          <div className="relative w-full md:w-[600px] h-[calc(100vh-56px)] md:h-full overflow-hidden">
             {heroImage && (
               <Image
                 src={heroImage.imageUrl}
@@ -94,51 +94,49 @@ export default function Home() {
               />
             )}
 
-            {/* Gradient for contrast on the image */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/20" />
+            {/* subtle overall tint to improve contrast */}
+            <div className="absolute inset-0" aria-hidden style={{background: 'linear-gradient(to top, rgba(0,0,0,0.25), rgba(0,0,0,0))'}} />
 
-            {/* Mobile overlay: name near top, summary lower with translucent box */}
-            <div className="md:hidden relative z-10">
-              <div className="absolute top-6 left-4 right-4">
-                <div className="bg-black/50 backdrop-blur-sm rounded px-3 py-2">
-                  <h1 className="text-foreground dark:text-primary-foreground text-2xl font-headline font-extrabold tracking-tight">
-                    {userProfile?.name || "Your Name"}
-                  </h1>
-                </div>
-              </div>
+            {/* bottom third fade that uses theme variables (matches light/dark) */}
+            <div
+              className="absolute left-0 right-0 bottom-0 h-1/3 pointer-events-none"
+              aria-hidden
+              style={{
+                background: 'linear-gradient(to top, hsl(var(--background) / 0.95), transparent)'
+              }}
+            />
 
-              <div className="absolute left-4 right-4 bottom-28">
-                <div className="bg-black/50 backdrop-blur-sm rounded p-4">
-                  <p className="text-sm md:text-base text-white/90">
-                    {userProfile?.summary ||
-                      "Innovative Full-Stack Developer | Building Scalable Web Solutions"}
-                  </p>
+            {/* Mobile overlay content positioned in the bottom faded area */}
+            <div className="md:hidden absolute left-4 right-4 bottom-4 z-10">
+              <div className="backdrop-blur-sm bg-transparent">
+                <h1 className="text-foreground dark:text-primary-foreground text-2xl font-headline font-extrabold tracking-tight">
+                  {userProfile?.name || "Your Name"}
+                </h1>
+                <p className="mt-2 text-sm md:text-base text-foreground/90">
+                  {userProfile?.summary ||
+                    "Innovative Full-Stack Developer | Building Scalable Web Solutions"}
+                </p>
+
+                <div className="mt-4 flex flex-col items-stretch gap-3">
+                  <Button
+                    asChild
+                    size="lg"
+                    className="bg-primary text-primary-foreground hover:bg-primary/90 w-full"
+                  >
+                    <CompanyAwareLink href="/resume">
+                      View Resume <ArrowRight className="ml-2 h-5 w-5" />
+                    </CompanyAwareLink>
+                  </Button>
+                  <Button asChild size="lg" variant="secondary" className="w-full">
+                    <CompanyAwareLink href="/portfolio">See Projects</CompanyAwareLink>
+                  </Button>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Mobile buttons: placed below the image */}
-        <div className="md:hidden container mx-auto px-4 mt-4 flex flex-col items-center gap-4">
-          <Button
-            asChild
-            size="lg"
-            className="bg-primary text-primary-foreground hover:bg-primary/90 w-full max-w-md"
-          >
-            <CompanyAwareLink href="/resume">
-              View Resume <ArrowRight className="ml-2 h-5 w-5" />
-            </CompanyAwareLink>
-          </Button>
-          <Button
-            asChild
-            size="lg"
-            variant="secondary"
-            className="w-full max-w-md"
-          >
-            <CompanyAwareLink href="/portfolio">See Projects</CompanyAwareLink>
-          </Button>
-        </div>
+        {/* mobile buttons moved into the image overlay so they're on top of the image */}
       </section>
 
       {/* Highlights Section */}
