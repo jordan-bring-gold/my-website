@@ -90,7 +90,9 @@ export default function Home() {
                 alt={heroImage.description}
                 fill
                 className="object-cover"
-                style={{ objectPosition: "center -100px" }}
+                style={{
+                  objectPosition: "center -100px",
+                }}
                 priority
               />
             )}
@@ -127,7 +129,14 @@ export default function Home() {
               alt={heroImage.description}
               fill
               className="object-cover"
-              style={{ objectPosition: "center -100px" }}
+              style={{
+                objectPosition: "top",
+                //as it gets wider. the translateY needs to get bigger
+                transform: `translateY(calc(-1 * (60px + max(0px, (100vw - 500px) / 2))))`,
+                //0-238 Constant/good
+                //239-500 Constant
+                //501-766 needs to grow translateY
+              }}
               priority
             />
           )}
@@ -148,7 +157,7 @@ export default function Home() {
             aria-hidden
             style={{
               background:
-                "linear-gradient(to top, hsl(var(--primary) / 0.12), transparent), linear-gradient(to top, hsl(var(--background) / 0.95), transparent)",
+                "linear-gradient(to top, hsl(var(--secondary) / 0.82), transparent), linear-gradient(to top, hsl(var(--background) / 0.95), transparent)",
             }}
           />
 
@@ -169,7 +178,7 @@ export default function Home() {
                   className="bg-primary text-primary-foreground hover:bg-primary/90 flex-1"
                 >
                   <CompanyAwareLink href="/resume">
-                    View Resume <ArrowRight className="ml-2 h-5 w-5" />
+                    View Resume <ArrowRight className="h-5 w-5" />
                   </CompanyAwareLink>
                 </Button>
                 <Button
