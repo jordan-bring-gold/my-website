@@ -48,7 +48,7 @@ export default function Home() {
     <div className="flex flex-col">
       {/* Hero Section */}
       <section
-        className="relative w-full text-primary-foreground"
+        className="relative w-full text-primary-foreground hero-padding"
         style={{ height: "calc(100vh - 56px)" }}
       >
         <div className="flex h-full flex-col md:flex-row">

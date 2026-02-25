@@ -38,6 +38,11 @@
     --sidebar-border: 238 54% 40%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+  /* Utility: fluid horizontal padding starting at 1350px, capped at 20px
+     - 0 at 1350px, increases with viewport width, max 20px */
+  .hero-padding {
+    padding-inline: max(0px, calc(100vw - 1350px)/2);
+  }
   .dark {
     --background: 240 10% 10%;
     --foreground: 238 100% 95%;
