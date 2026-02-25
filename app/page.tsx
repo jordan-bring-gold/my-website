@@ -51,7 +51,8 @@ export default function Home() {
         className="relative w-full text-primary-foreground hero-padding"
         style={{ height: "calc(100vh - 56px)" }}
       >
-        <div className="flex h-full flex-col md:flex-row">
+        {/* Desktop Version*/}
+        <div className="hidden md:flex h-full md:flex-row">
           {/* Left column: desktop only (text + buttons) */}
           <div className="hidden md:flex md:flex-1 items-center">
             <div className="container px-4 md:px-6 text-left">
@@ -105,53 +106,86 @@ export default function Home() {
             />
 
             {/* bottom third fade that uses theme variables (matches light/dark) */}
-            <div
+            {/* <div
               className="absolute left-0 right-0 bottom-0 h-1/3 pointer-events-none"
               aria-hidden
               style={{
                 background:
                   "linear-gradient(to top, hsl(var(--background) / 0.95), transparent)",
               }}
+            /> */}
+
+            {/* Mobile overlay content removed from desktop image — moved below */}
+          </div>
+        </div>
+
+        {/* mobile version of hero section */}
+        <div className="md:hidden relative w-full h-[calc(100vh-58px)] overflow-hidden">
+          {heroImage && (
+            <Image
+              src={heroImage.imageUrl}
+              alt={heroImage.description}
+              fill
+              className="object-cover"
+              style={{ objectPosition: "center -100px" }}
+              priority
             />
+          )}
 
-            {/* Mobile overlay content positioned in the bottom faded area */}
-            <div className="md:hidden absolute left-4 right-4 bottom-4 z-10">
-              <div className="backdrop-blur-sm bg-transparent">
-                <h1 className="text-foreground dark:text-primary-foreground text-2xl font-headline font-extrabold tracking-tight">
-                  {userProfile?.name || "Your Name"}
-                </h1>
-                <p className="mt-2 text-sm md:text-base text-foreground/90">
-                  {userProfile?.summary ||
-                    "Innovative Full-Stack Developer | Building Scalable Web Solutions"}
-                </p>
+          {/* subtle overall tint to improve contrast */}
+          <div
+            className="absolute inset-0"
+            aria-hidden
+            style={{
+              background:
+                "linear-gradient(to top, rgba(0,0,0,0.25), rgba(0,0,0,0))",
+            }}
+          />
 
-                <div className="mt-4 flex flex-row items-center gap-3">
-                  <Button
-                    asChild
-                    size="lg"
-                    className="bg-primary text-primary-foreground hover:bg-primary/90 flex-1"
-                  >
-                    <CompanyAwareLink href="/resume">
-                      View Resume <ArrowRight className="ml-2 h-5 w-5" />
-                    </CompanyAwareLink>
-                  </Button>
-                  <Button
-                    asChild
-                    size="lg"
-                    variant="secondary"
-                    className="flex-1"
-                  >
-                    <CompanyAwareLink href="/portfolio">
-                      See Projects
-                    </CompanyAwareLink>
-                  </Button>
-                </div>
+          {/* bottom third fade that uses theme variables (matches light/dark) */}
+          <div
+            className="absolute left-0 right-0 bottom-0 h-1/2 pointer-events-none"
+            aria-hidden
+            style={{
+              background:
+                "linear-gradient(to top, hsl(var(--primary) / 0.12), transparent), linear-gradient(to top, hsl(var(--background) / 0.95), transparent)",
+            }}
+          />
+
+          <div className="absolute left-4 right-4 bottom-20 z-10">
+            <div className="backdrop-blur-sm bg-transparent">
+              <h1 className="text-foreground dark:text-primary-foreground text-2xl font-headline font-extrabold tracking-tight">
+                {userProfile?.name || "Your Name"}
+              </h1>
+              <p className="mt-2 text-sm md:text-base text-foreground/90">
+                {userProfile?.summary ||
+                  "Innovative Full-Stack Developer | Building Scalable Web Solutions"}
+              </p>
+
+              <div className="mt-4 flex flex-row items-center gap-3">
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 flex-1"
+                >
+                  <CompanyAwareLink href="/resume">
+                    View Resume <ArrowRight className="ml-2 h-5 w-5" />
+                  </CompanyAwareLink>
+                </Button>
+                <Button
+                  asChild
+                  size="lg"
+                  variant="secondary"
+                  className="flex-1"
+                >
+                  <CompanyAwareLink href="/portfolio">
+                    See Projects
+                  </CompanyAwareLink>
+                </Button>
               </div>
             </div>
           </div>
         </div>
-
-        {/* mobile buttons moved into the image overlay so they're on top of the image */}
       </section>
 
       {/* Highlights Section */}
