@@ -95,14 +95,22 @@ export default function Home() {
             )}
 
             {/* subtle overall tint to improve contrast */}
-            <div className="absolute inset-0" aria-hidden style={{background: 'linear-gradient(to top, rgba(0,0,0,0.25), rgba(0,0,0,0))'}} />
+            <div
+              className="absolute inset-0"
+              aria-hidden
+              style={{
+                background:
+                  "linear-gradient(to top, rgba(0,0,0,0.25), rgba(0,0,0,0))",
+              }}
+            />
 
             {/* bottom third fade that uses theme variables (matches light/dark) */}
             <div
               className="absolute left-0 right-0 bottom-0 h-1/3 pointer-events-none"
               aria-hidden
               style={{
-                background: 'linear-gradient(to top, hsl(var(--background) / 0.95), transparent)'
+                background:
+                  "linear-gradient(to top, hsl(var(--background) / 0.95), transparent)",
               }}
             />
 
@@ -117,18 +125,25 @@ export default function Home() {
                     "Innovative Full-Stack Developer | Building Scalable Web Solutions"}
                 </p>
 
-                <div className="mt-4 flex flex-col items-stretch gap-3">
+                <div className="mt-4 flex flex-row items-center gap-3">
                   <Button
                     asChild
                     size="lg"
-                    className="bg-primary text-primary-foreground hover:bg-primary/90 w-full"
+                    className="bg-primary text-primary-foreground hover:bg-primary/90 flex-1"
                   >
                     <CompanyAwareLink href="/resume">
                       View Resume <ArrowRight className="ml-2 h-5 w-5" />
                     </CompanyAwareLink>
                   </Button>
-                  <Button asChild size="lg" variant="secondary" className="w-full">
-                    <CompanyAwareLink href="/portfolio">See Projects</CompanyAwareLink>
+                  <Button
+                    asChild
+                    size="lg"
+                    variant="secondary"
+                    className="flex-1"
+                  >
+                    <CompanyAwareLink href="/portfolio">
+                      See Projects
+                    </CompanyAwareLink>
                   </Button>
                 </div>
               </div>
