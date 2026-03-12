@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { useEffect, useState } from "react";
 import { DialogContent, DialogDescription, DialogTitle } from "./ui/dialog";
 import { GitHubImage } from "./github-image";
 import {
@@ -9,6 +9,7 @@ import {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
+  type CarouselApi,
 } from "./ui/carousel";
 import { CustomScroll } from "./ui/custom-scroll";
 import type { Project, Image as ProjectImage } from "../lib/types";
@@ -28,10 +29,26 @@ const formatDate = (date: any) => {
 };
 
 export default function ProjectPopup({ project, images }: ProjectPopupProps) {
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    if (!api) return;
+
+    setCurrent(api.selectedScrollSnap());
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
+
+  const isFirst = current === 0;
+  const isLast = current === images.length - 1;
+
   return (
     <DialogContent className="max-w-2xl max-h-[90vh] flex flex-col pr-5">
       <CustomScroll className="flex flex-col space-y-6 pr-1 pt-1">
-        <Carousel className="w-full flex-shrink-0">
+        <Carousel className="w-full flex-shrink-0" setApi={setApi}>
           <CarouselContent>
             {images.map((image, index) => (
               <CarouselItem key={index}>
@@ -46,8 +63,12 @@ export default function ProjectPopup({ project, images }: ProjectPopupProps) {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="left-4" />
-          <CarouselNext className="right-4" />
+          {images.length > 1 && (
+            <>
+              {!isFirst && <CarouselPrevious className="left-4" />}
+              {!isLast && <CarouselNext className="right-4" />}
+            </>
+          )}
         </Carousel>
 
         <div className="flex flex-col">
