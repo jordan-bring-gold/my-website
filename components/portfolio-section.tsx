@@ -54,6 +54,15 @@ export default function PortfolioSection({
     return map;
   }, [images]);
 
+  const sortedProjects = React.useMemo(() => {
+    if (!projects) return [];
+    return [...projects].sort((a, b) => {
+      const aOrder = a.defaultOrder ?? Number.MAX_SAFE_INTEGER;
+      const bOrder = b.defaultOrder ?? Number.MAX_SAFE_INTEGER;
+      return aOrder - bOrder;
+    });
+  }, [projects]);
+
   const skillsById = React.useMemo(() => {
     if (!skills) return new Map<string, Skill>();
     return new Map(skills.map((skill) => [skill.id, skill]));
@@ -70,14 +79,14 @@ export default function PortfolioSection({
 
   return (
     <div>
-      {!projects || projects.length === 0 ? (
+      {!sortedProjects || sortedProjects.length === 0 ? (
         <div className="text-center text-muted-foreground py-12 border-2 border-dashed rounded-xl">
           <p>No projects have been added yet.</p>
         </div>
       ) : (
         <Dialog>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project) => {
+            {sortedProjects.map((project) => {
               const thumbnail = imagesById.get(project.imageThumbnailId);
               const projectSkills = project.skillIds
                 ?.map((id) => skillsById.get(id))
