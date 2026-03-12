@@ -1,6 +1,6 @@
 "use client";
 
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, Phone } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -96,6 +96,17 @@ export default function ContactPage() {
                 <Mail className="h-6 w-6 text-primary" />
                 <span className="group-hover:text-primary transition-colors">
                   {userProfile.contactEmail}
+                </span>
+              </a>
+            )}
+            {userProfile?.phoneNumber && (
+              <a
+                href={`tel:${userProfile.phoneNumber}`}
+                className="flex items-center gap-4 text-lg group"
+              >
+                <Phone className="h-6 w-6 text-primary" />
+                <span className="group-hover:text-primary transition-colors">
+                  {userProfile.phoneNumber}
                 </span>
               </a>
             )}
