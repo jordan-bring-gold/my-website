@@ -6,10 +6,10 @@ import { GitHubImage } from "@/components/github-image";
 import Link from "next/link";
 import {
   ArrowRight,
-  Star,
+  CircleDollarSign,
+  ScrollText,
+  Hourglass,
   Code,
-  Briefcase,
-  DraftingCompass,
 } from "lucide-react";
 import PortfolioSection from "@/components/portfolio-section";
 import ScrollingBanner from "@/components/scrolling-banner";
@@ -203,22 +203,22 @@ export default function Home() {
           <div className="flex flex-col items-stretch gap-12 md:flex-row md:justify-between md:items-start md:flex-nowrap">
             {[
               {
-                icon: <Star className="h-8 w-8 text-accent" />,
-                title: "Leadership & Innovation",
+                icon: <CircleDollarSign className="h-8 w-8 text-accent" />,
+                title: "Cost Optimization",
                 description:
-                  "Led a team of 5 engineers to deliver a flagship product, increasing user engagement by 40%.",
+                  "Delivered custom in-house software that replaced costly third-party solutions, driving $25,000+ in annual savings.",
               },
               {
-                icon: <Briefcase className="h-8 w-8 text-accent" />,
-                title: "Full-Stack Expertise",
+                icon: <ScrollText className="h-8 w-8 text-accent" />,
+                title: "Process Improvement",
                 description:
-                  "Developed and maintained scalable full-stack applications with millions of users.",
+                  "Reduced manufacturing build time by 75% by replacing complex printed schematics with a software-guided assembly workflow.",
               },
               {
-                icon: <DraftingCompass className="h-8 w-8 text-accent" />,
-                title: "Performance Optimization",
+                icon: <Hourglass className="h-8 w-8 text-accent" />,
+                title: "Automation & Efficiency",
                 description:
-                  "Reduced API response times by 60% and improved frontend load times by 2x.",
+                  "Developed an end-of-line automated programming and QA fixture, cutting per-unit cycle time by 97.5%."
               },
             ].map((highlight, index) => (
               <div
