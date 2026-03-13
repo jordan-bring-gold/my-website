@@ -73,7 +73,7 @@ export default function Home() {
                     View Resume <ArrowRight className="ml-2 h-5 w-5" />
                   </CompanyAwareLink>
                 </Button>
-                <Button asChild size="lg" variant="secondary">
+                <Button asChild size="lg" variant="outline" className="hover:bg-muted text-foreground">
                   <CompanyAwareLink href="/portfolio">
                     See Projects
                   </CompanyAwareLink>
@@ -175,7 +175,7 @@ export default function Home() {
                 <Button
                   asChild
                   size="lg"
-                  className="bg-primary text-primary-foreground hover:bg-primary/90 flex-1"
+                  className="bg-primary text-primary-foreground hover:bg-primary/80 flex-1"
                 >
                   <CompanyAwareLink href="/resume">
                     View Resume <ArrowRight className="h-5 w-5" />
@@ -184,8 +184,8 @@ export default function Home() {
                 <Button
                   asChild
                   size="lg"
-                  variant="secondary"
-                  className="flex-1"
+                  variant="outline"
+                  className="bg-background hover:bg-muted"
                 >
                   <CompanyAwareLink href="/portfolio">
                     See Projects
@@ -198,7 +198,7 @@ export default function Home() {
       </section>
 
       {/* Highlights Section */}
-      <section className="bg-background py-16 sm:py-24">
+      <section className="bg-muted py-16 sm:py-24">
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex flex-col items-stretch gap-12 md:flex-row md:justify-between md:items-start md:flex-nowrap">
             {[
@@ -243,7 +243,7 @@ export default function Home() {
       </section>
 
       {/* Featured Projects Section */}
-      <section className="bg-muted py-16 sm:py-24">
+      <section className="bg-background py-16 sm:py-24">
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex flex-col items-center text-center">
             <h2 className="text-3xl font-headline font-bold tracking-tighter sm:text-4xl md:text-5xl">
@@ -261,7 +261,7 @@ export default function Home() {
             />
           </div>
           <div className="mt-12 text-center">
-            <Button asChild variant="outline">
+            <Button asChild variant="outline" className="bg-background hover:bg-muted">
               <CompanyAwareLink href="/portfolio">
                 View All Projects <ArrowRight className="ml-2 h-4 w-4" />
               </CompanyAwareLink>
@@ -271,7 +271,7 @@ export default function Home() {
       </section>
 
       {/* Skills Section */}
-      <section className="bg-background py-16 sm:py-24">
+      <section className="bg-muted py-16 sm:py-24">
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex flex-col items-center text-center">
             <Code className="h-12 w-12 text-primary" />
@@ -285,12 +285,12 @@ export default function Home() {
           </div>
           {shuffledSkills.length > 0 ? (
             <div className="mt-12">
-              <ScrollingBanner speed={30} pauseOnHover={false}>
+              <ScrollingBanner speed={30} pauseOnHover={false} fadeColor="hsl(var(--muted))">
                 {shuffledSkills.map((skill, index) => (
                   <Badge
                     key={`${skill}-${index}`}
-                    variant="secondary"
-                    className="px-4 py-2 text-sm whitespace-nowrap flex-shrink-0"
+                    variant="outline"
+                    className="px-4 py-2 text-sm whitespace-nowrap flex-shrink-0 bg-background select-none cursor-default"
                   >
                     {skill}
                   </Badge>
@@ -308,7 +308,7 @@ export default function Home() {
       </section>
 
       {/* Get in Touch Section with short message and a button to redirect to the contact page */}
-      <section className="relative bg-muted py-16 sm:py-24 overflow-hidden">
+      <section className="relative bg-background py-16 sm:py-24 overflow-hidden">
         <Image
           src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920"
           alt="Professional business person in modern office setting"
