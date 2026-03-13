@@ -67,13 +67,13 @@ export default function Home() {
                 <Button
                   asChild
                   size="lg"
-                  className="bg-primary text-primary-foreground hover:bg-primary/90"
+                  className="bg-primary text-primary-foreground hover:primary"
                 >
                   <CompanyAwareLink href="/resume">
                     View Resume <ArrowRight className="ml-2 h-5 w-5" />
                   </CompanyAwareLink>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="hover:bg-muted text-foreground">
+                <Button asChild size="lg" variant="outline" className="bg-muted hover:primary text-foreground ">
                   <CompanyAwareLink href="/portfolio">
                     See Projects
                   </CompanyAwareLink>
@@ -185,7 +185,7 @@ export default function Home() {
                   asChild
                   size="lg"
                   variant="outline"
-                  className="bg-background hover:bg-muted"
+                  className="hover:primary bg-muted text-foreground hover:text-primary-foreground"
                 >
                   <CompanyAwareLink href="/portfolio">
                     See Projects
@@ -261,7 +261,7 @@ export default function Home() {
             />
           </div>
           <div className="mt-12 text-center">
-            <Button asChild variant="outline" className="bg-background hover:bg-muted">
+            <Button asChild variant="outline" className="hover:primary text-foreground bg-muted">
               <CompanyAwareLink href="/portfolio">
                 View All Projects <ArrowRight className="ml-2 h-4 w-4" />
               </CompanyAwareLink>
@@ -331,7 +331,7 @@ export default function Home() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-1 bg-white text-black hover:bg-primary hover:text-white"
+                className="border-1 bg-white text-black hover:primary hover:text-primary-foreground"
               >
                 <CompanyAwareLink href="/contact">
                   Get in Touch <ArrowRight className="ml-2 h-5 w-5" />
