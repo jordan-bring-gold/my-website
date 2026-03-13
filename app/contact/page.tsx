@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import * as React from "react";
 import { useToast } from "@/hooks/use-toast";
 import type { UserProfile } from "@/lib/types";
+import { formatUrl } from "@/lib/format-url";
 
 // Import default company data
 import defaultCompanyData from "@/data/companies/default.json";
@@ -112,7 +113,7 @@ export default function ContactPage() {
             )}
             {userProfile?.githubUrl && (
               <a
-                href={userProfile.githubUrl}
+                href={formatUrl(userProfile.githubUrl)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 text-lg group"
@@ -125,7 +126,7 @@ export default function ContactPage() {
             )}
             {userProfile?.linkedinUrl && (
               <a
-                href={userProfile.linkedinUrl}
+                href={formatUrl(userProfile.linkedinUrl)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 text-lg group"

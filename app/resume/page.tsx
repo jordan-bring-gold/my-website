@@ -6,6 +6,7 @@ import { Download, Mail, Phone, Linkedin, Github } from "lucide-react";
 
 // Import default company data
 import defaultCompanyData from "@/data/companies/default.json";
+import { formatUrl } from "@/lib/format-url";
 
 const formatDate = (date: any) => {
   if (!date) return "";
@@ -112,7 +113,7 @@ export default function ResumePage() {
             )}
             {userProfile?.linkedinUrl && (
               <a
-                href={userProfile.linkedinUrl}
+                href={formatUrl(userProfile.linkedinUrl)}
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center gap-2 hover:text-primary"
@@ -122,7 +123,7 @@ export default function ResumePage() {
             )}
             {userProfile?.githubUrl && (
               <a
-                href={userProfile.githubUrl}
+                href={formatUrl(userProfile.githubUrl)}
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center gap-2 hover:text-primary"
