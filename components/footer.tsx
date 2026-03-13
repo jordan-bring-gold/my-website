@@ -6,6 +6,7 @@ import { Github, Linkedin, Youtube, Facebook } from 'lucide-react';
 import { Button } from './ui/button';
 import { XIcon } from './icons/x-icon';
 import * as React from 'react';
+import { formatUrl } from '@/lib/format-url';
 
 // Import default company data for footer
 import defaultCompanyData from '@/data/companies/default.json';
@@ -59,7 +60,7 @@ export default function Footer() {
               social.url ? (
                 <Button variant="ghost" size="icon" asChild key={social.name}>
                   <a
-                    href={social.url}
+                    href={formatUrl(social.url)}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.name}
