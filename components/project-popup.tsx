@@ -53,12 +53,14 @@ export default function ProjectPopup({ project, images }: ProjectPopupProps) {
             {images.map((image, index) => (
               <CarouselItem key={index}>
                 <div className="p-1">
-                  <GitHubImage
-                    src={image.imageUrl || image.base64Content}
-                    alt={`${project.name} image ${index + 1}`}
-                    className="w-full aspect-video object-cover rounded-lg max-h-[50vh]"
-                    fallbackSrc="/placeholder.png"
-                  />
+                  <div className="w-full aspect-video max-h-[50vh] flex items-center justify-center">
+                    <GitHubImage
+                      src={image.imageUrl || image.base64Content}
+                      alt={`${project.name} image ${index + 1}`}
+                      className="max-w-full max-h-full object-contain rounded-lg"
+                      fallbackSrc="/placeholder.png"
+                    />
+                  </div>
                 </div>
               </CarouselItem>
             ))}
