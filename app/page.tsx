@@ -255,9 +255,10 @@ export default function Home() {
           </div>
           <div className="container mx-auto px-4 pt-10 pb-5 sm:px-6 lg:px-8">
             <PortfolioSection
-              projects={data?.projects?.slice(0, 3)}
+              projects={data?.projects}
               skills={data?.skills}
               images={data?.images}
+              slice={true}
             />
           </div>
           <div className="mt-12 text-center">

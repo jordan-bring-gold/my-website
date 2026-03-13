@@ -22,6 +22,7 @@ interface PortfolioSectionProps {
   images?: ProjectImage[];
   hideDate?: boolean;
   hideSkills?: boolean;
+  slice?: boolean;
 }
 
 export default function PortfolioSection({
@@ -30,6 +31,7 @@ export default function PortfolioSection({
   images = [],
   hideDate = false,
   hideSkills = false,
+  slice = false,
 }: PortfolioSectionProps) {
   const [selectedProject, setSelectedProject] = React.useState<Project | null>(
     null,
@@ -86,7 +88,7 @@ export default function PortfolioSection({
       ) : (
         <Dialog>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {sortedProjects.map((project) => {
+            {(slice ? sortedProjects.slice(0, 3) : sortedProjects).map((project) => {
               const thumbnail = imagesById.get(project.imageThumbnailId);
               const projectSkills = project.skillIds
                 ?.map((id) => skillsById.get(id))
